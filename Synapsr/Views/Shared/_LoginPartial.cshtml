@@ -1,0 +1,17 @@
+﻿<ul class="nav navbar-right navbar-nav row">
+    @{ 
+        if (Request.Cookies[FormsAuthentication.FormsCookieName]!=null)
+        {
+            Synapsr.Models.DatabaseStore db = new Synapsr.Models.DatabaseStore();
+            HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+            FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            <li class="col-xs-12"><h1 style="color:white">Hello @authTicket.Name</h1></li>
+            HttpContext.Current.Request.Cookies.Remove(FormsAuthentication.FormsCookieName);
+        }
+        else
+        {
+            <li class="col-xs-12 text-center"><a href="#" data-target="#login-modal" data-toggle="modal" style="padding:10px"><img class="img-circle" src="~/Content/Images/male.png" width="30" height="30" /></a></li>
+        }
+    }
+</ul>
+

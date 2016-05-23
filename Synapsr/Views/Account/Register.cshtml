@@ -1,0 +1,46 @@
+﻿@model Synapsr.Models.ViewModels.UserViewModel
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-header">
+            <h1>Logare</h1>
+        </div>
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "Login Error", new { @class = "alert alert-danger" });
+            @Html.TextBoxFor(u => u.UserName, new { @placeholder = "Username", @class = "form-control" });
+            @Html.ValidationMessageFor(u => u.UserName);
+            @Html.PasswordFor(u => u.Password, new { @placeholder = "Password", @class = "form-control" });
+            @Html.CheckBoxFor(u => u.RememberMe, new { @class = "radio" });
+            @Html.LabelFor(u => u.RememberMe, new { @class = "control-label" });
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" name="login" style="width:100%" class="btn btn-default" value="Login">
+                </div>
+            </div>
+
+        }
+    </div>
+
+    <div class="col-md-6">
+        <div class="page-header">
+            <h1>Inregistrare</h1>
+        </div>
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            @Html.ValidationSummary(true, "Login Error", new { @class = "alert alert-danger" });
+            @Html.TextBoxFor(u => u.UserName, new { @placeholder = "Username", @class = "form-control" });
+            @Html.PasswordFor(u => u.Password, new { @placeholder = "Password", @class = "form-control" });
+            @Html.CheckBoxFor(u => u.RememberMe, new { @class = "radio" });
+            @Html.LabelFor(u => u.RememberMe, new { @class = "control-label" });
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="submit" class="btn btn-success" style="width:100%" value="Register" />
+                </div>
+            </div>
+            
+        }
+
+    </div>
+</div>
