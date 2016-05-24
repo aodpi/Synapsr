@@ -1,38 +1,72 @@
 ﻿@model Synapsr.Models.ViewModels.RegisterViewModel
 <div class="row">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="col-md-12">
-                <div class="page-header">
-                    <h1>Inregistrare</h1>
+    <div class="page-header">
+        <h1>Inregistrare</h1>
+    </div>
+    <div class="container">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @enctype = "multipart/form-data",@style="align:center" }))
+        {
+            <div class="form-horizontal">
+                @Html.ValidationSummary()
+                    <div class="form-group">
+                        @Html.LabelFor(u => u.UserName, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(u => u.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(u => u.UserName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                <div class="form-group">
+                    @Html.LabelFor(u => u.Password, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(u => u.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
                 </div>
 
-                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-                {
-                    @Html.ValidationSummary();
-                    <br />
-                    @Html.TextBoxFor(u => u.UserName, new { @placeholder = "Username", @class = "form-control" });
-                    <br />
-                    @Html.PasswordFor(u => u.Password, new { @placeholder = "Password", @class = "form-control" });
-                    <br />
-                    @Html.PasswordFor(u => u.RepeatPassword, new { @class = "form-control", @placeholder = "Repeat Password" });
-                    @Html.ValidationMessageFor(u => u.RepeatPassword);
-                    <br />
-                    @Html.TextBoxFor(u => u.Email, new { @class = "form-control", @placeholder = "email" });
-                    <br />
-                    @Html.TextBoxFor(u => u.FirstName, new { @class = "form-control" });
-                    <br />
-                    @Html.TextBoxFor(u => u.SecondName, new { @class = "form-control" });
-                    <br />
-                    @Html.DropDownList("Specialitate",null,new { @class = "form-control" });
-                    <br />
-                    <input type="file" name="AvatarImage" />
-                    <br />
-                    <input type="submit" class="btn btn-success" style="width:100%" value="Register" />
-                }
+                <div class="form-group">
+                    @Html.LabelFor(u => u.RepeatPassword, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(u => u.RepeatPassword, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(u => u.RepeatPassword, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    @Html.LabelFor(u => u.Email, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(u => u.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(u => u.FirstName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(u => u.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(u => u.LastName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.EditorFor(u => u.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(u => u.Specialitate, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.DropDownList("Specialitate", null, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(u => u.AvatarImage, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        <input type="file" id="AvatarImage" name="AvatarImage" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="submit" class="btn btn-success" style="width:100%" value="Register" />
+                    </div>
+                </div>
             </div>
-        </div>
+        }
     </div>
-    
 </div>

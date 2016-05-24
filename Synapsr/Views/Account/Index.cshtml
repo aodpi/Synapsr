@@ -1,27 +1,27 @@
-﻿@{ 
-    DatabaseStore db = new DatabaseStore();
-    HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+﻿@{
+    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    {
+        HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+        FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+        User currusr = DBInstance.Current.Users.FirstOrDefault(u => u.UserName == authTicket.Name);
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <a class="text-center" href="@Url.Content("~/UserStore/" + DBInstance.Current.Users.GetUserAvatar(authTicket.Name))"><center><img src="@Url.Content("~/UserStore/" + DBInstance.Current.Users.GetUserAvatar(authTicket.Name))" class="img-thumbnail" style="width:250px;height:250px" /></center></a>
+                </div>
+                <div class="col-md-9">
+                    <ul class="list-group" style="margin-top:20px">
+                        <li class="list-group-item"><b>Nume: </b>@currusr.FirstName</li>
+                        <li class="list-group-item"><b>Prenume: </b>@currusr.LastName</li>
+                        <li class="list-group-item"><b>Specialitatea: </b> @DBInstance.Current.Specialities.FirstOrDefault(u => u.Id == currusr.IdSpecialitate).Name</li>
+                        <li class="list-group-item"><b>Username: </b>@currusr.UserName</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h1>You are not logged in.</h1>
+    }
 }
-<ul class="breadcrumb">
-    <li><a href="#">Account</a></li>
-    <li><a href="#">Profile Details</a></li>
-    <li>aodpi</li>
-</ul>
-<div class="row">
-    <div class="col-md-4">
-        <a class="text-center" href="~/Content/Images/male.png"><center><img src="@Url.Content("~/UserStore/"+db.Users.GetUserAvatar(authTicket.Name))" class="img-circle" width="250" height="250" /></center></a>
-    </div>
-    <div class="col-md-8">
-        <ul class="list-group" style="margin-top:20px">
-            <li class="list-group-item"><b>Nume: </b>XXXXXXXXXXX XXXXXXXXX</li>
-            <li class="list-group-item"><b>Virsta: </b> 20 ani</li>
-            <li class="list-group-item"><b>Specialitatea: </b> Management Informational</li>
-            <li class="list-group-item"><b>Username: </b>@authTicket.Name</li>
-        </ul>
-    </div>
-</div>
-
-<div class="row" style="margin-top:20px">
-    <div class="col-md-12"><b>Personal Contribution</b></div>
-</div>

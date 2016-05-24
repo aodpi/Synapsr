@@ -6,12 +6,12 @@ using System.Web.Mvc;
 using Synapsr.Models;
 using Synapsr.Models.ViewModels;
 using System.Web.Security;
+using Synapsr.Extensions;
 
 namespace Synapsr.Controllers
 {
     public class AccountController : Controller
     {
-        private static readonly DatabaseStore db = new DatabaseStore();
         // GET: Account
         public ActionResult Index()
         {
@@ -19,7 +19,7 @@ namespace Synapsr.Controllers
         }
         public ActionResult Register()
         {
-            ViewBag.Specialitate = new SelectList(db.Specialities, "Id", "Name");
+            ViewBag.Specialitate = new SelectList(DBInstance.Current.Specialities, "Id", "Name");
             return View();
         }
 
@@ -31,7 +31,7 @@ namespace Synapsr.Controllers
                 
                 if (mdl.AvatarImage!=null)
                 {
-                    var usr = db.Users.FirstOrDefault(f => f.UserName == mdl.UserName);
+                    var usr = DBInstance.Current.Users.FirstOrDefault(f => f.UserName == mdl.UserName);
                     if (!System.IO.Directory.Exists(Server.MapPath("~/UserStore/" + mdl.UserName + "/")))
                     {
                         System.IO.Directory.CreateDirectory(Server.MapPath("~/UserStore/"+mdl.UserName+"/"));
@@ -40,18 +40,37 @@ namespace Synapsr.Controllers
                     mdl.AvatarImage.SaveAs(Server.MapPath("~/UserStore/" + mdl.UserName + "/" + mdl.AvatarImage.FileName));
                     if (usr == null)
                     {
-                        db.Users.Add(new User() { UserName = mdl.UserName, Password = Security.Encryption.Sha1Encode(mdl.Password), ElevationId = 1, avatar_uri = "/" + mdl.UserName + "/" + mdl.AvatarImage.FileName, IdSpecialitate = mdl.Specialitate });
-                        db.SaveChanges();
+                        DBInstance.Current.Users.Add(new User()
+                        {
+                            UserName = mdl.UserName,
+                            Password = Security.Encryption.Sha1Encode(mdl.Password),
+                            ElevationId = 2,
+                            avatar_uri = "/" + mdl.UserName + "/" + mdl.AvatarImage.FileName,
+                            IdSpecialitate = mdl.Specialitate,
+                            FirstName = mdl.FirstName,
+                            LastName = mdl.LastName,
+                            Email = mdl.Email
+                        });
+                        DBInstance.Current.SaveChanges();
                     }
                 }
             }
             else
             {
+                ViewBag.Specialitate = new SelectList(DBInstance.Current.Specialities, "Id", "Name");
                 return View();
             }
             return RedirectToAction("Index", "Home");
         }
 
+        public ActionResult Logout()
+        {
+            if (Response.Cookies[FormsAuthentication.FormsCookieName]!=null)
+            {
+                Response.Cookies[FormsAuthentication.FormsCookieName].Expires = DateTime.Now.AddDays(-1);
+            }
+            return RedirectToAction("Index", "Home");
+        }
         [HttpPost]
         public ActionResult Login(UserViewModel mdl)
         {
@@ -68,10 +87,10 @@ namespace Synapsr.Controllers
                 else
                 {
                     ModelState.AddModelError("Login", "No such username");
-                    return View("Register", mdl);
+                    return RedirectToAction("Index", "Home", new { @Err = "true" });
                 }
             }
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index", "Home");
         }
     }
 }

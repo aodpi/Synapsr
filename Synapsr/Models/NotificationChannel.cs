@@ -12,10 +12,14 @@ namespace Synapsr.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         public string NotificationType { get; set; }
+
         public string NotificationChannelUri { get; set; }
+
         [ForeignKey("User")]
         public int UserId { get; set; }
+
         public virtual User User { get; set; }
     }
 }

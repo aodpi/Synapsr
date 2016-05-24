@@ -1,0 +1,51 @@
+﻿<div id="login-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Login</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="well">
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                            {
+                                <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
+                                    @{
+                                        if (Request.QueryString["Err"] != null)
+                                        {
+                                            <div class="alert alert-danger">
+                                                Username or password is incorrect!!
+                                            </div>
+                                        }
+                                    }
+                                    <div class="form-group">
+                                        @Html.Label("UserName", "Username")
+                                        <input type="text" id="UserName" name="UserName" class="form-control" />
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.Label("Password", "Password")
+                                        <input type="password" id="Password" name="Password" class="form-control" />
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div id="loginErrorMsg" class="alert alert-error hide">Wrong username og password</div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="RememberMe" id="RememberMe"> Remember login
+                                        </label>
+                                        <p class="help-block">(if this is a private computer)</p>
+                                    </div>
+                                    <button type="submit" class="btn btn-success btn-block">Login</button>
+                                </form>
+                            }
+                            <span class="help-block"></span>
+                            <p>@Html.ActionLink("Register Now!", "Register", "Account", null, new { @class = "btn btn-info btn-block" })</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
