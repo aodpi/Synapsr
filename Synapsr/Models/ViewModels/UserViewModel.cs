@@ -6,19 +6,6 @@ namespace Synapsr.Models.ViewModels
 {
     public class UserViewModel
     {
-        public class ValidationResult
-        {
-            public enum ResultType
-            {
-                OK,
-                UWPC,
-                UWPW,
-                UCPW
-            }
-            public ResultType Result { get; set; }
-        }
-
-
         private DatabaseStore db = new DatabaseStore();
 
         [Required,Display(Name ="Username")]

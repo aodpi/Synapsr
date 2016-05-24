@@ -11,7 +11,7 @@ namespace Synapsr.Models.ViewModels
     {
         [StringLength(20),Required]
         public string UserName { get; set; }
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password),Required]
         public string Password { get; set; }
         [Compare("Password",ErrorMessage = "Passwords are not the same")]
         public string RepeatPassword { get; set; }
@@ -19,8 +19,11 @@ namespace Synapsr.Models.ViewModels
         public string FirstName { get; set; }
         [StringLength(40)]
         public string SecondName { get; set; }
-        [DataType(DataType.EmailAddress)]
+
+        [DataType(DataType.EmailAddress),Required]
         public string Email { get; set; }
-        public HttpPostedFile AvatarImage { get; set; }
+
+        public int Specialitate { get; set; }
+        public HttpPostedFileBase AvatarImage { get; set; }
     }
 }

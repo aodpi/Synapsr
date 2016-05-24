@@ -14,18 +14,25 @@ namespace Synapsr.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
+        public string Email { get; set; }
         [StringLength(20),Required]
         public string UserName { get; set; }
 
         [StringLength(200), Required]
         public string Password { get; set; }
 
+        [ForeignKey("Specialitate")]
+        public int IdSpecialitate { get; set; }
+        public Specialitate Specialitate { get; set; }
         [ForeignKey("Elevation"),DisplayName("Elevation"),Display(Name ="Elevation")]
         public int ElevationId { get; set; }
         [DisplayName("Elevation"),Display(Name ="Elevation")]
         public virtual Elevation Elevation { get; set; }
 
-        public ICollection<NotificationChannel> NotificationChannels { get; set; }
+        public virtual ICollection<NotificationChannel> NotificationChannels { get; set; }
 
         public string avatar_uri { get; set; }
     }

@@ -17,47 +17,39 @@ namespace Synapsr.Controllers
         {
             return View();
         }
-
-        public ActionResult Login()
-        {
-            return View();
-        }
-
         public ActionResult Register()
         {
+            ViewBag.Specialitate = new SelectList(db.Specialities, "Id", "Name");
             return View();
         }
+
         [HttpPost]
-        public ActionResult Register(UserViewModel mdl)
+        public ActionResult Register(RegisterViewModel mdl)
         {
-            var usr = db.Users.FirstOrDefault(f => f.UserName == mdl.UserName);
-            if (usr == null)
+            if (ModelState.IsValid)
             {
-                db.Users.Add(new User() { UserName = mdl.UserName, Password = Security.Encryption.Sha1Encode(mdl.Password), ElevationId = 1 });
-                db.SaveChanges();
+                
+                if (mdl.AvatarImage!=null)
+                {
+                    var usr = db.Users.FirstOrDefault(f => f.UserName == mdl.UserName);
+                    if (!System.IO.Directory.Exists(Server.MapPath("~/UserStore/" + mdl.UserName + "/")))
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath("~/UserStore/"+mdl.UserName+"/"));
+                    }
+
+                    mdl.AvatarImage.SaveAs(Server.MapPath("~/UserStore/" + mdl.UserName + "/" + mdl.AvatarImage.FileName));
+                    if (usr == null)
+                    {
+                        db.Users.Add(new User() { UserName = mdl.UserName, Password = Security.Encryption.Sha1Encode(mdl.Password), ElevationId = 1, avatar_uri = "/" + mdl.UserName + "/" + mdl.AvatarImage.FileName, IdSpecialitate = mdl.Specialitate });
+                        db.SaveChanges();
+                    }
+                }
             }
             else
             {
-                ModelState.AddModelError("", "User already exists");
-                return View("Register", mdl);
+                return View();
             }
-            if (ModelState.IsValid)
-            {
-                if (mdl.IsValid(mdl.UserName, mdl.Password))
-                {
-
-                    if (Request.Cookies[FormsAuthentication.FormsCookieName] == null)
-                    {
-                        FormsAuthentication.SetAuthCookie(mdl.UserName, mdl.RememberMe);
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("Register", "Login data incorrect");
-                    return View("Register", mdl);
-                }
-            }
-            return Redirect(Request.UrlReferrer.ToString());
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]

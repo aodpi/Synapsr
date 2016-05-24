@@ -6,13 +6,13 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace Synapsr.Models
 {
-    [Table("elevations")]
-    public class Elevation
+    [Table("specialitati")]
+    public class Specialitate
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity),Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [StringLength(25),Required]
-        public string ElevationName { get; set; }
+        public string Name { get; set; }
+
         public virtual ICollection<User> Users { get; set; }
     }
 }

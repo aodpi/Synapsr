@@ -10,9 +10,11 @@ namespace Synapsr.Models
     {
         public DatabaseStore() : base("name=SConn")
         {
+            this.Configuration.LazyLoadingEnabled = false;  
         }
         public DbSet<Elevation> Elevations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<NotificationChannel> NotificationChannels { get; set; }
+        public DbSet<Specialitate> Specialities { get; set; }
     }
 }

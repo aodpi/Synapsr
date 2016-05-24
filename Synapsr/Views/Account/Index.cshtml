@@ -1,18 +1,23 @@
-﻿<ul class="breadcrumb">
+﻿@{ 
+    DatabaseStore db = new DatabaseStore();
+    HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+    FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+}
+<ul class="breadcrumb">
     <li><a href="#">Account</a></li>
     <li><a href="#">Profile Details</a></li>
     <li>aodpi</li>
 </ul>
 <div class="row">
     <div class="col-md-4">
-        <a class="text-center" href="~/Content/Images/male.png"><center><img src="~/Content/Images/male.png" class="img-thumbnail" width="250" height="250" /></center></a>
+        <a class="text-center" href="~/Content/Images/male.png"><center><img src="@Url.Content("~/UserStore/"+db.Users.GetUserAvatar(authTicket.Name))" class="img-circle" width="250" height="250" /></center></a>
     </div>
     <div class="col-md-8">
         <ul class="list-group" style="margin-top:20px">
             <li class="list-group-item"><b>Nume: </b>XXXXXXXXXXX XXXXXXXXX</li>
             <li class="list-group-item"><b>Virsta: </b> 20 ani</li>
             <li class="list-group-item"><b>Specialitatea: </b> Management Informational</li>
-            <li class="list-group-item"><b>Username: </b>aodpi</li>
+            <li class="list-group-item"><b>Username: </b>@authTicket.Name</li>
         </ul>
     </div>
 </div>

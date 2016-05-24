@@ -144,7 +144,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\male.png" />
-    <Content Include="Content\Images\female.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -172,18 +171,22 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\VaseaController.cs" />
+    <Compile Include="Extensions\Account.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605231624427_init.cs" />
-    <Compile Include="Migrations\201605231624427_init.Designer.cs">
-      <DependentUpon>201605231624427_init.cs</DependentUpon>
+    <Compile Include="Migrations\201605241512564_Initial.cs" />
+    <Compile Include="Migrations\201605241512564_Initial.Designer.cs">
+      <DependentUpon>201605241512564_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseStore.cs" />
     <Compile Include="Models\Elevation.cs" />
     <Compile Include="Models\NotificationChannel.cs" />
+    <Compile Include="Models\Specialitate.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
@@ -201,6 +204,11 @@
     <Content Include="Views\Home\Timeline.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Vasea\Create.cshtml" />
+    <Content Include="Views\Vasea\Delete.cshtml" />
+    <Content Include="Views\Vasea\Details.cshtml" />
+    <Content Include="Views\Vasea\Edit.cshtml" />
+    <Content Include="Views\Vasea\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -210,10 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserStore\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605231624427_init.resx">
-      <DependentUpon>201605231624427_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605241512564_Initial.resx">
+      <DependentUpon>201605241512564_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

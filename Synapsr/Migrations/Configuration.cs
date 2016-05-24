@@ -10,6 +10,7 @@ namespace Synapsr.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            
         }
 
         protected override void Seed(Synapsr.Models.DatabaseStore context)
@@ -18,8 +19,11 @@ namespace Synapsr.Migrations
             context.Elevations.AddOrUpdate(e => e.ElevationName,
                 new Models.Elevation { ElevationName = "Supervisor" });
             context.SaveChanges();
+            context.Specialities.AddOrUpdate(e => e.Name,
+                new Models.Specialitate { Name = "Informatica Aplicata" });
+            context.SaveChanges();
             context.Users.AddOrUpdate(u => u.UserName,
-                new Models.User { UserName = "aodpi", Password = Security.Encryption.Sha1Encode("aodpiram1994"), avatar_uri = "/deepcoil.jpg", ElevationId=1 });
+                new Models.User { UserName = "aodpi", Password = Security.Encryption.Sha1Encode("aodpiram1994"), IdSpecialitate = 1, avatar_uri = "/deepcoil.jpg", ElevationId = 1 });
             context.SaveChanges();
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.

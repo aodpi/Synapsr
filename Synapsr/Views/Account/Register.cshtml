@@ -1,46 +1,38 @@
-﻿@model Synapsr.Models.ViewModels.UserViewModel
+﻿@model Synapsr.Models.ViewModels.RegisterViewModel
 <div class="row">
-    <div class="col-md-6">
-        <div class="page-header">
-            <h1>Logare</h1>
-        </div>
-
-        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-        {
-            @Html.ValidationSummary(true, "Login Error", new { @class = "alert alert-danger" });
-            @Html.TextBoxFor(u => u.UserName, new { @placeholder = "Username", @class = "form-control" });
-            @Html.ValidationMessageFor(u => u.UserName);
-            @Html.PasswordFor(u => u.Password, new { @placeholder = "Password", @class = "form-control" });
-            @Html.CheckBoxFor(u => u.RememberMe, new { @class = "radio" });
-            @Html.LabelFor(u => u.RememberMe, new { @class = "control-label" });
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="submit" name="login" style="width:100%" class="btn btn-default" value="Login">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Inregistrare</h1>
                 </div>
-            </div>
 
-        }
-    </div>
-
-    <div class="col-md-6">
-        <div class="page-header">
-            <h1>Inregistrare</h1>
-        </div>
-
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
-        {
-            @Html.ValidationSummary(true, "Login Error", new { @class = "alert alert-danger" });
-            @Html.TextBoxFor(u => u.UserName, new { @placeholder = "Username", @class = "form-control" });
-            @Html.PasswordFor(u => u.Password, new { @placeholder = "Password", @class = "form-control" });
-            @Html.CheckBoxFor(u => u.RememberMe, new { @class = "radio" });
-            @Html.LabelFor(u => u.RememberMe, new { @class = "control-label" });
-            <div class="row">
-                <div class="col-md-12">
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary();
+                    <br />
+                    @Html.TextBoxFor(u => u.UserName, new { @placeholder = "Username", @class = "form-control" });
+                    <br />
+                    @Html.PasswordFor(u => u.Password, new { @placeholder = "Password", @class = "form-control" });
+                    <br />
+                    @Html.PasswordFor(u => u.RepeatPassword, new { @class = "form-control", @placeholder = "Repeat Password" });
+                    @Html.ValidationMessageFor(u => u.RepeatPassword);
+                    <br />
+                    @Html.TextBoxFor(u => u.Email, new { @class = "form-control", @placeholder = "email" });
+                    <br />
+                    @Html.TextBoxFor(u => u.FirstName, new { @class = "form-control" });
+                    <br />
+                    @Html.TextBoxFor(u => u.SecondName, new { @class = "form-control" });
+                    <br />
+                    @Html.DropDownList("Specialitate",null,new { @class = "form-control" });
+                    <br />
+                    <input type="file" name="AvatarImage" />
+                    <br />
                     <input type="submit" class="btn btn-success" style="width:100%" value="Register" />
-                </div>
-            </div>
-            
-        }
+                }
 
+            </div>
+        </div>
     </div>
+    
 </div>
