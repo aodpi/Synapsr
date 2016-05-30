@@ -1,0 +1,22 @@
+﻿@Styles.Render("~/bundles/styles/timetable")
+<div class="timetable"></div>
+
+@Scripts.Render("~/bundles/timetable")
+<script>
+    var timetable = new Timetable();
+    timetable.setScope(7, 23);
+    timetable.addLocations(['Luni','Marti','Miercuri','Joi','Vineri']);
+    timetable.addEvent('IST', 'Luni', new Date(2015, 7, 17, 8, 00), new Date(2015, 7, 17, 9, 20), '#');
+    timetable.addEvent('CBC', 'Luni', new Date(2015, 7, 17, 9, 30), new Date(2015, 7, 17, 10, 55), '#');
+    timetable.addEvent('Limba Engleza','Marti',new Date(2015,7,17,9,35),new Date(2015,7,17,12,30),'#');
+    @{
+        var xx = DateTime.Now;
+    }
+    @for (int i = 0; i < 1; i++)
+    {
+        @:timetable.addEvent('SIA', 'Miercuri', new Date(2016,5,30,7,00) , new Date(@(xx.Year),@(xx.Month),30,10,@(xx.Minute)), '#');
+    }
+    var renderer = new Timetable.Renderer(timetable);
+    renderer.draw('.timetable');
+</script>
+

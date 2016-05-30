@@ -2,9 +2,10 @@
     @{ 
         if (Request.Cookies[FormsAuthentication.FormsCookieName]!=null)
         {
+            DatabaseStore db = new DatabaseStore();
             HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
             FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-            <li class="col-xs-6 text-center"><a href="@Url.Action("Index", "Account", null)" style="padding:10px"><img class="img-circle" src="@Url.Content("~/UserStore/"+DBInstance.Current.Users.GetUserAvatar(authTicket.Name))" width="30" height="30" /></a></li>
+            <li class="col-xs-6 text-center"><a href="@Url.Action("Index", "Account", null)" style="padding:10px"><img class="img-circle" src="@Url.Content("~/UserStore/"+db.Users.GetUserAvatar(authTicket.Name))" width="30" height="30" /></a></li>
             <li class="col-xs-6 text-center"><a href="@Url.Action("Logout","Account",null)">Logout</a></li>
             HttpContext.Current.Request.Cookies.Remove(FormsAuthentication.FormsCookieName);
         }

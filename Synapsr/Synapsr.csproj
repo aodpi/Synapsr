@@ -143,6 +143,43 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\SlackBranding\Slack Mark Black.png" />
+    <Content Include="Content\Images\SlackBranding\Slack Monochrome Black.png" />
+    <Content Include="Content\imgs_dhx_terrace\arrow_left.png" />
+    <Content Include="Content\imgs_dhx_terrace\arrow_right.png" />
+    <Content Include="Content\imgs_dhx_terrace\but_repeat.gif" />
+    <Content Include="Content\imgs_dhx_terrace\calendar.gif" />
+    <Content Include="Content\imgs_dhx_terrace\clock_big.gif" />
+    <Content Include="Content\imgs_dhx_terrace\clock_small.gif" />
+    <Content Include="Content\imgs_dhx_terrace\close_icon.png" />
+    <Content Include="Content\imgs_dhx_terrace\collapse_expand_icon.gif" />
+    <Content Include="Content\imgs_dhx_terrace\controls.png" />
+    <Content Include="Content\imgs_dhx_terrace\databg.png" />
+    <Content Include="Content\imgs_dhx_terrace\databg_now.png" />
+    <Content Include="Content\imgs_dhx_terrace\export_ical.png" />
+    <Content Include="Content\imgs_dhx_terrace\export_pdf.png" />
+    <Content Include="Content\imgs_dhx_terrace\resize_dots.png" />
+    <Content Include="Content\imgs_dhx_terrace\resizing.png" />
+    <Content Include="Content\imgs_flat\agenda_bg.gif" />
+    <Content Include="Content\imgs_flat\arrow_left.png" />
+    <Content Include="Content\imgs_flat\arrow_right.png" />
+    <Content Include="Content\imgs_flat\but_repeat.gif" />
+    <Content Include="Content\imgs_flat\calendar.gif" />
+    <Content Include="Content\imgs_flat\clock.png" />
+    <Content Include="Content\imgs_flat\clock_big.gif" />
+    <Content Include="Content\imgs_flat\clock_small.gif" />
+    <Content Include="Content\imgs_flat\close_icon.png" />
+    <Content Include="Content\imgs_flat\collapse_expand_icon.gif" />
+    <Content Include="Content\imgs_flat\controls.png" />
+    <Content Include="Content\imgs_flat\databg.png" />
+    <Content Include="Content\imgs_flat\databg_now.png" />
+    <Content Include="Content\imgs_flat\export_ical.png" />
+    <Content Include="Content\imgs_flat\export_pdf.png" />
+    <Content Include="Content\imgs_flat\resize_dots.png" />
+    <Content Include="Content\imgs_flat\resizing.png" />
+    <Content Include="Content\timetablejs.css" />
+    <Content Include="Scripts\dhtmlxscheduler.js" />
+    <Content Include="Scripts\timetable.min.js" />
     <Content Include="UserStore\male.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -155,6 +192,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Sett\json.json" />
     <None Include="Properties\PublishProfiles\Synapsr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -173,6 +211,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrganizrController.cs" />
+    <Compile Include="Controllers\SlackController.cs" />
     <Compile Include="Extensions\Account.cs" />
     <Compile Include="Extensions\DBInstance.cs" />
     <Compile Include="Global.asax.cs">
@@ -181,6 +221,10 @@
     <Compile Include="Migrations\201605241512564_Initial.cs" />
     <Compile Include="Migrations\201605241512564_Initial.Designer.cs">
       <DependentUpon>201605241512564_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605250153469_Sex.cs" />
+    <Compile Include="Migrations\201605250153469_Sex.Designer.cs">
+      <DependentUpon>201605250153469_Sex.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseStore.cs" />
@@ -205,6 +249,8 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\LoginFormPartial.cshtml" />
+    <Content Include="Views\Slack\Index.cshtml" />
+    <Content Include="Views\Organizr\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -214,11 +260,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605241512564_Initial.resx">
       <DependentUpon>201605241512564_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605250153469_Sex.resx">
+      <DependentUpon>201605250153469_Sex.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

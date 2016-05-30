@@ -20,13 +20,9 @@ namespace Synapsr.Extensions
         {
             get
             {
-                if (instance==null)
+                if (instance == null)
                 {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new Models.DatabaseStore();
-                    }
+                    instance = new Models.DatabaseStore();
                 }
                 return instance;
             }

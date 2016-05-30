@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    DatabaseStore db = new DatabaseStore();
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -22,20 +25,31 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="#">Structura Catedrei</a></li>
-                    <li><a href="#">Organizr</a></li>
-                    <li><a href="#">Slack</a></li>
+                    <li><a href="@Url.Action("Index","Organizr",null)">Organizr</a></li>
+                    @{
+                        if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+                        {
+                            HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+                            FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+                            var currusr = db.Users.FirstOrDefault(u => u.UserName == authTicket.Name);
+                            var elev = db.Elevations.FirstOrDefault(e => e.Id == currusr.ElevationId);
+                            if (elev.ElevationName=="Teacher")
+                            {
+                                <li><a href="@Url.Action("Index","Slack",null)">Slack</a></li>
+                            }
+                        }
+                    }
                     <li>@Html.ActionLink("Istoric", "Timeline", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-
     <div class="container body-content">
         @RenderBody()
     </div>
     @Html.Partial("LoginFormPartial")
-   
+  
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script type="text/javascript">

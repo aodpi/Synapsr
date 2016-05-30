@@ -14,6 +14,8 @@ namespace Synapsr.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public string Sex { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
 

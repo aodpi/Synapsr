@@ -14,10 +14,11 @@ namespace Synapsr
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js").Include("~/fonts"));
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/bootstrap.js"));
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include("~/Scripts/modernizr-{version}.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/timetable").Include("~/Scripts/timetable.min.js"));
             //Styles
             bundles.Add(new StyleBundle("~/bundles/styles/local").Include("~/Content/Site.css"));
             bundles.Add(new StyleBundle("~/bundles/styles/bootstrap").Include("~/Content/bootstrap.css"));
+            bundles.Add(new StyleBundle("~/bundles/styles/timetable").Include("~/Content/timetablejs.css"));
             BundleTable.EnableOptimizations = false;
         }
     }

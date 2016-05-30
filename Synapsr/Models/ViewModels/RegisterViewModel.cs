@@ -52,5 +52,7 @@ namespace Synapsr.Models.ViewModels
         public int Specialitate { get; set; }
 
         public HttpPostedFileBase AvatarImage { get; set; }
+
+        public string Sex { get; set; }
     }
 }
