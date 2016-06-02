@@ -43,6 +43,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=16.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.16.1.0.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
@@ -139,6 +143,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bundles\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -179,15 +184,22 @@
     <Content Include="Content\imgs_flat\resizing.png" />
     <Content Include="Content\timetablejs.css" />
     <Content Include="Scripts\dhtmlxscheduler.js" />
+    <Content Include="Content\Sett\timetable.json" />
+    <Content Include="Logistics\ClassDiagram1.cd" />
+    <Content Include="bundles\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="bundles\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="bundles\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="bundles\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\timetable.min.js" />
+    <Content Include="UserStore\female.png" />
     <Content Include="UserStore\male.png" />
     <Content Include="Content\Site.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
@@ -218,6 +230,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logistics\Timetable.cs" />
     <Compile Include="Migrations\201605241512564_Initial.cs" />
     <Compile Include="Migrations\201605241512564_Initial.Designer.cs">
       <DependentUpon>201605241512564_Initial.cs</DependentUpon>
@@ -226,13 +239,19 @@
     <Compile Include="Migrations\201605250153469_Sex.Designer.cs">
       <DependentUpon>201605250153469_Sex.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606021534435_Teachers.cs" />
+    <Compile Include="Migrations\201606021534435_Teachers.Designer.cs">
+      <DependentUpon>201606021534435_Teachers.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseStore.cs" />
     <Compile Include="Models\Elevation.cs" />
     <Compile Include="Models\NotificationChannel.cs" />
     <Compile Include="Models\Specialitate.cs" />
+    <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Models\ViewModels\TimetableViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Encryption.cs" />
@@ -251,6 +270,7 @@
     <Content Include="Views\Shared\LoginFormPartial.cshtml" />
     <Content Include="Views\Slack\Index.cshtml" />
     <Content Include="Views\Organizr\Index.cshtml" />
+    <Content Include="Views\Home\StructCat.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -267,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605250153469_Sex.resx">
       <DependentUpon>201605250153469_Sex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606021534435_Teachers.resx">
+      <DependentUpon>201606021534435_Teachers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

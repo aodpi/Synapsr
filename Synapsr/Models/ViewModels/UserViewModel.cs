@@ -6,8 +6,6 @@ namespace Synapsr.Models.ViewModels
 {
     public class UserViewModel
     {
-        private DatabaseStore db = new DatabaseStore();
-
         [Required,Display(Name ="Username")]
         public string UserName { get; set; }
 
@@ -19,10 +17,13 @@ namespace Synapsr.Models.ViewModels
 
         public bool IsValid(string username,string password)
         {
-            //password = Encryption.Sha1Encode(password);
-            var psdhash = Encryption.Sha1Encode(password);
-            User usr = db.Users.FirstOrDefault(f => f.UserName == username && f.Password == psdhash);
-            return usr == null ? false : true;
+            using (DatabaseStore db=new DatabaseStore())
+            {
+                //password = Encryption.Sha1Encode(password);
+                var psdhash = Encryption.Sha1Encode(password);
+                User usr = db.Users.FirstOrDefault(f => f.UserName == username && f.Password == psdhash);
+                return usr == null ? false : true;
+            }
         }
     }
 }

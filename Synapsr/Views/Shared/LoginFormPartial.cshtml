@@ -11,21 +11,33 @@
                         <div class="well">
                             @using (Html.BeginForm("Login", "Account", FormMethod.Post))
                             {
-                                @model Synapsr.Models.ViewModels.UserViewModel
-                                <form id="loginForm" method="POST" action="/login/" novalidate="novalidate">
-                                    @{
-                                        if (Request.QueryString["Err"] != null)
-                                        {
+                                if (Request.QueryString["Err"] != null)
+                                {
+                                    switch (Request.QueryString["Err"])
+                                    {
+                                        case "nodata":
                                             <div class="alert alert-danger">
-                                                Username or password is incorrect!!
+                                                Please provide username and password.
                                             </div>
-                                        }
+                                            break;
+                                        case "invusr":
+                                            <div class="alert alert-danger">
+                                                This username does not exist.
+                                            </div>
+                                            break;
+                                        default:
+                                            <div class="alert alert-danger">
+                                                Invalid username or password.
+                                            </div>
+                                            break;
                                     }
-                                    <div class="form-group">
-                                        @Html.Label("UserName", "Username")
-                                        <input type="text" id="UserName" name="UserName" class="form-control" />
-                                        <span class="help-block"></span>
-                                    </div>
+                                }
+
+                                <div class="form-group">
+                                    @Html.Label("UserName", "Username")
+                                    <input type="text" id="UserName" name="UserName" class="form-control" />
+                                    <span class="help-block"></span>
+                                </div>
                                     <div class="form-group">
                                         @Html.Label("Password", "Password")
                                         <input type="password" id="Password" name="Password" class="form-control" />
@@ -42,11 +54,9 @@
                                             <p>@Html.ActionLink("Register Now!", "Register", "Account", null, new { @class = "btn btn-info btn-block" })</p>
                                         </div>
                                     </div>
-                                    
-                                </form>
                             }
                             <span class="help-block"></span>
-                            
+
                         </div>
                     </div>
                 </div>

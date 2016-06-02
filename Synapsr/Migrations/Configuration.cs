@@ -37,6 +37,13 @@ namespace Synapsr.Migrations
                     LastName = "Balan"
                 });
             context.SaveChanges();
+            context.Teachers.AddOrUpdate(u => u.Firstname, new Models.Teacher
+            {
+                Firstname = "Lazu",
+                Lastname = "Victoria",
+                Grade = "Lector Superior"
+            });
+            context.SaveChanges();
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //

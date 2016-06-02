@@ -12,14 +12,16 @@ namespace Synapsr.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly DatabaseStore db = new DatabaseStore();
-        private static readonly SlackClient cl = new SlackClient("https://hooks.slack.com/services/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");
         // GET: Home
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult StructCat()
+        {
+            return View();
+        }
         public ActionResult Timeline()
         {
             return View();

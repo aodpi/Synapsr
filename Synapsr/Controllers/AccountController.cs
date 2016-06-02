@@ -97,6 +97,7 @@ namespace Synapsr.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
         [HttpPost]
         public ActionResult Login(UserViewModel mdl)
         {
@@ -112,9 +113,12 @@ namespace Synapsr.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("Login", "No such username");
-                    return RedirectToAction("Index", "Home", new { @Err = "true" });
+                    return RedirectToAction("Index", "Home", new { @Err = "invusr" });
                 }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", new { @Err = "nodata" });
             }
             return RedirectToAction("Index", "Home");
         }

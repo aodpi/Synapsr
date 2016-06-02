@@ -31,7 +31,7 @@ namespace Synapsr.Models.ViewModels
     }
     public class RegisterViewModel
     {
-        [StringLength(20),Required,UserName,Display(Name ="Username:")]
+        [StringLength(20),Required,UserName,Display(Name ="Username:"),DataType(DataType.Text)]
         public string UserName { get; set; }
 
         [DataType(DataType.Password),Required,Display(Name ="Password:")]
@@ -40,10 +40,10 @@ namespace Synapsr.Models.ViewModels
         [Compare("Password",ErrorMessage = "Passwords are not the same"),DataType(DataType.Password),Display(Name ="Repeat password:")]
         public string RepeatPassword { get; set; }
 
-        [StringLength(40)]
+        [StringLength(40),Required]
         public string FirstName { get; set; }
 
-        [StringLength(40)]
+        [StringLength(40),Required]
         public string LastName { get; set; }
 
         [DataType(DataType.EmailAddress),Required]

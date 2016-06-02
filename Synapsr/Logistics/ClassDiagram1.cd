@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Synapsr.Logistics.TimeTable">
+    <Position X="1.75" Y="1" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="Synapsr.Logistics.TimeTable.Rootobject">
+        <TypeIdentifier>
+          <NewMemberFileName>Logistics\Timetable.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="Synapsr.Logistics.TimeTable.Event">
+        <TypeIdentifier>
+          <NewMemberFileName>Logistics\Timetable.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gEAAAAAAACAAAARAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logistics\Timetable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

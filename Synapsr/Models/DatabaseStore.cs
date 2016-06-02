@@ -15,5 +15,6 @@ namespace Synapsr.Models
         public DbSet<User> Users { get; set; }
         public DbSet<NotificationChannel> NotificationChannels { get; set; }
         public DbSet<Specialitate> Specialities { get; set; }
+        public DbSet<Teacher> Teachers { get; set; }
     }
 }

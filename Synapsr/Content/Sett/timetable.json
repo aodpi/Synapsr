@@ -1,0 +1,170 @@
+{
+  "oldDate": null,
+  "events": [
+    {
+      "obiect": "SIA",
+      "zi": "Luni",
+      "start_date": "06/02/2016 08:00:00",
+      "end_date": "06/02/2016 09:20:00",
+      "link": "#",
+      "long_name": "Sisteme de inteligenta artificiala",
+      "auditoriu": "604",
+      "profesor": "Liviu Carcea",
+      "impara": false
+    },
+    {
+      "obiect": "Lab SIA 608",
+      "zi": "Luni",
+      "start_date": "06/02/2016 09:35:00",
+      "end_date": "06/02/2016 10:55:00",
+      "link": "#",
+      "long_name": "Laborator la Sisteme de Inteligenta Artificiala",
+      "auditoriu": "608",
+      "profesor": "Liviu Carcea",
+      "impara": false
+    },
+    {
+      "obiect": "BSD 101",
+      "zi": "Luni",
+      "start_date": "06/02/2016 11:10:00",
+      "end_date": "06/02/2016 12:30:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Veronica Rosca",
+      "impara": false
+    },
+    {
+      "obiect": "CCA/Limba franceza 618/619",
+      "zi": "Marti",
+      "start_date": "06/02/2016 11:10:00",
+      "end_date": "06/02/2016 12:30:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Maria Anischeevici",
+      "impara": false
+    },
+    {
+      "obiect": "Modelarea Sistemelor 624",
+      "zi": "Marti",
+      "start_date": "06/02/2016 12:40:00",
+      "end_date": "06/02/2016 14:00:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Stefan Marin",
+      "impara": false
+    },
+    {
+      "obiect": "Laborator Modelarea Sistemelor 608",
+      "zi": "Marti",
+      "start_date": "06/02/2016 14:10:00",
+      "end_date": "06/02/2016 17:00:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Stefan Marin",
+      "impara": false
+    },
+    {
+      "obiect": "CCA/Limba franceza 618/619",
+      "zi": "Miercuri",
+      "start_date": "06/02/2016 09:35:00",
+      "end_date": "06/02/2016 10:55:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Maria Anischevici",
+      "impara": false
+    },
+    {
+      "obiect": "Retele de calculatoare 604",
+      "zi": "Miercuri",
+      "start_date": "06/02/2016 11:10:00",
+      "end_date": "06/02/2016 12:30:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Stadler Lucia",
+      "impara": false
+    },
+    {
+      "obiect": "CCA 624",
+      "zi": "Miercuri",
+      "start_date": "06/02/2016 12:40:00",
+      "end_date": "06/02/2016 14:00:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Maria Anischeevici",
+      "impara": false
+    },
+    {
+      "obiect": "Limba Franceza",
+      "zi": "Joi",
+      "start_date": "06/02/2016 08:00:00",
+      "end_date": "06/02/2016 09:20:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Sofia Rotaru",
+      "impara": false
+    },
+    {
+      "obiect": "CCA/Limba Franceza 618/619",
+      "zi": "Joi",
+      "start_date": "06/02/2016 09:35:00",
+      "end_date": "06/02/2016 10:55:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Maria Anischeevici",
+      "impara": false
+    },
+    {
+      "obiect": "IST 624",
+      "zi": "Joi",
+      "start_date": "06/02/2016 11:10:00",
+      "end_date": "06/02/2016 12:30:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Victoria Bobicev",
+      "impara": false
+    },
+    {
+      "obiect": "IST",
+      "zi": "Vineri",
+      "start_date": "06/02/2016 09:35:00",
+      "end_date": "06/02/2016 10:55:00",
+      "link": "#",
+      "long_name": "Interpretarea Semantica a Textului",
+      "auditoriu": "624",
+      "profesor": "Victoria Bobicev",
+      "impara": false
+    },
+    {
+      "obiect": "Lab IST/SIA 114/112",
+      "zi": "Vineri",
+      "start_date": "06/02/2016 11:10:00",
+      "end_date": "06/02/2016 14:00:00",
+      "link": "#",
+      "long_name": null,
+      "auditoriu": null,
+      "profesor": "Liviu Carcea",
+      "impara": false
+    },
+    {
+      "obiect": "LE",
+      "zi": "Vineri",
+      "start_date": "06/02/2016 14:05:00",
+      "end_date": "06/02/2016 15:30:00",
+      "link": "#",
+      "long_name": "Limba Engleza",
+      "auditoriu": "609",
+      "profesor": "Lazu Victoria",
+      "impara": false
+    }
+  ]
+}
