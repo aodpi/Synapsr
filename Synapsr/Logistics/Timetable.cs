@@ -33,6 +33,7 @@ namespace Synapsr.Logistics
         }
 
         private List<Event> _events = new List<Event>();
+
         private string _filename = string.Empty;
         public TimeTable(string filename)
         {
@@ -46,6 +47,7 @@ namespace Synapsr.Logistics
             var json = JsonConvert.SerializeObject(new Rootobject { events = Events.ToArray() }, Formatting.Indented);
             System.IO.File.WriteAllText(_filename, json);
         }
+
         public void AddEvent(Event ev)
         {
             if (_events.Contains(ev))
@@ -56,8 +58,7 @@ namespace Synapsr.Logistics
 
         public void Dispose()
         {
-            Events.Clear();
-            _events.Clear();
+            Events = null;
         }
 
         public List<Event> Events

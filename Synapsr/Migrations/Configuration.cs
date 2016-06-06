@@ -19,12 +19,15 @@ namespace Synapsr.Migrations
             context.Elevations.AddOrUpdate(e => e.ElevationName,
                 new Models.Elevation { ElevationName = "Supervisor" },
                 new Models.Elevation { ElevationName = "Student" },
-                new Models.Elevation { ElevationName = "Teacher" });
+                new Models.Elevation { ElevationName = "Teacher" },
+                new Models.Elevation { ElevationName = "GroupSupervisor" });
             context.SaveChanges();
+
             context.Specialities.AddOrUpdate(e => e.Name,
                 new Models.Specialitate { Name = "Informatica Aplicata" },
                 new Models.Specialitate { Name = "Management Informational" });
             context.SaveChanges();
+
             context.Users.AddOrUpdate(u => u.UserName,
                 new Models.User
                 {
@@ -32,17 +35,23 @@ namespace Synapsr.Migrations
                     Password = "YWNlNjU1MTc4ZjIwNTc5Y2E3Y2E0M2U3NDA5NTI2OTYwMmNhOTA2Yg==",
                     IdSpecialitate = 1,
                     avatar_uri = "/male.png",
-                    ElevationId = 1,
+                    ElevationId = 3,
                     FirstName = "Valeriu",
-                    LastName = "Balan"
+                    LastName = "Balan",
+                    Email = "balan.valeriu@live.com",
+                    Sex = "Male"
                 });
             context.SaveChanges();
+
             context.Teachers.AddOrUpdate(u => u.Firstname, new Models.Teacher
             {
                 Firstname = "Lazu",
                 Lastname = "Victoria",
                 Grade = "Lector Superior"
             });
+            context.SaveChanges();
+            context.Groups.Add(
+                new Models.Group { Name = "IA131", Year = Convert.ToInt32(13) == DateTime.Now.Year ? 13 : (DateTime.Now.Year - 13)%2000 });
             context.SaveChanges();
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.

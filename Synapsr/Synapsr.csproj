@@ -148,40 +148,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\favicon.ico" />
     <Content Include="Content\Images\SlackBranding\Slack Mark Black.png" />
     <Content Include="Content\Images\SlackBranding\Slack Monochrome Black.png" />
-    <Content Include="Content\imgs_dhx_terrace\arrow_left.png" />
-    <Content Include="Content\imgs_dhx_terrace\arrow_right.png" />
-    <Content Include="Content\imgs_dhx_terrace\but_repeat.gif" />
-    <Content Include="Content\imgs_dhx_terrace\calendar.gif" />
-    <Content Include="Content\imgs_dhx_terrace\clock_big.gif" />
-    <Content Include="Content\imgs_dhx_terrace\clock_small.gif" />
-    <Content Include="Content\imgs_dhx_terrace\close_icon.png" />
-    <Content Include="Content\imgs_dhx_terrace\collapse_expand_icon.gif" />
-    <Content Include="Content\imgs_dhx_terrace\controls.png" />
-    <Content Include="Content\imgs_dhx_terrace\databg.png" />
-    <Content Include="Content\imgs_dhx_terrace\databg_now.png" />
-    <Content Include="Content\imgs_dhx_terrace\export_ical.png" />
-    <Content Include="Content\imgs_dhx_terrace\export_pdf.png" />
-    <Content Include="Content\imgs_dhx_terrace\resize_dots.png" />
-    <Content Include="Content\imgs_dhx_terrace\resizing.png" />
-    <Content Include="Content\imgs_flat\agenda_bg.gif" />
-    <Content Include="Content\imgs_flat\arrow_left.png" />
-    <Content Include="Content\imgs_flat\arrow_right.png" />
-    <Content Include="Content\imgs_flat\but_repeat.gif" />
-    <Content Include="Content\imgs_flat\calendar.gif" />
-    <Content Include="Content\imgs_flat\clock.png" />
-    <Content Include="Content\imgs_flat\clock_big.gif" />
-    <Content Include="Content\imgs_flat\clock_small.gif" />
-    <Content Include="Content\imgs_flat\close_icon.png" />
-    <Content Include="Content\imgs_flat\collapse_expand_icon.gif" />
-    <Content Include="Content\imgs_flat\controls.png" />
-    <Content Include="Content\imgs_flat\databg.png" />
-    <Content Include="Content\imgs_flat\databg_now.png" />
-    <Content Include="Content\imgs_flat\export_ical.png" />
-    <Content Include="Content\imgs_flat\export_pdf.png" />
-    <Content Include="Content\imgs_flat\resize_dots.png" />
-    <Content Include="Content\imgs_flat\resizing.png" />
     <Content Include="Content\timetablejs.css" />
     <Content Include="Scripts\dhtmlxscheduler.js" />
     <Content Include="Content\Sett\timetable.json" />
@@ -230,23 +199,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logistics\AccountManager.cs" />
     <Compile Include="Logistics\Timetable.cs" />
-    <Compile Include="Migrations\201605241512564_Initial.cs" />
-    <Compile Include="Migrations\201605241512564_Initial.Designer.cs">
-      <DependentUpon>201605241512564_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201606061017188_Initial.cs" />
+    <Compile Include="Migrations\201606061017188_Initial.Designer.cs">
+      <DependentUpon>201606061017188_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605250153469_Sex.cs" />
-    <Compile Include="Migrations\201605250153469_Sex.Designer.cs">
-      <DependentUpon>201605250153469_Sex.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606021534435_Teachers.cs" />
-    <Compile Include="Migrations\201606021534435_Teachers.Designer.cs">
-      <DependentUpon>201606021534435_Teachers.cs</DependentUpon>
+    <Compile Include="Migrations\201606061341549_groups.cs" />
+    <Compile Include="Migrations\201606061341549_groups.Designer.cs">
+      <DependentUpon>201606061341549_groups.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseStore.cs" />
     <Compile Include="Models\Elevation.cs" />
+    <Compile Include="Models\Group.cs" />
     <Compile Include="Models\NotificationChannel.cs" />
+    <Compile Include="Models\RegCode.cs" />
     <Compile Include="Models\Specialitate.cs" />
     <Compile Include="Models\Teacher.cs" />
     <Compile Include="Models\User.cs" />
@@ -282,14 +250,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605241512564_Initial.resx">
-      <DependentUpon>201605241512564_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606061017188_Initial.resx">
+      <DependentUpon>201606061017188_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605250153469_Sex.resx">
-      <DependentUpon>201605250153469_Sex.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606021534435_Teachers.resx">
-      <DependentUpon>201606021534435_Teachers.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606061341549_groups.resx">
+      <DependentUpon>201606061341549_groups.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

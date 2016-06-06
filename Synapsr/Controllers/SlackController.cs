@@ -11,10 +11,10 @@ namespace Synapsr.Controllers
 
         public class Rootobject
         { 
-            public List<Filname> filnames { get; set; }
+            public List<Filename> filnames { get; set; }
         }
 
-        public class Filname
+        public class Filename
         {
             public string currname { get; set; }
             public string initname { get; set; }
@@ -24,7 +24,14 @@ namespace Synapsr.Controllers
         // GET: Slack
         public ActionResult Index()
         {
-
+            var xx = Logistics.AccountManager.GetCurrentUser();
+            if (xx!=null)
+            {
+                if (xx.Item2.ElevationName!="Teacher")
+                {
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
+                }
+            }
             return View();
         }
 
@@ -38,8 +45,9 @@ namespace Synapsr.Controllers
             var ffff=urf.filnames.FirstOrDefault(u => u.currname == fileguid).initname;
             return File(filepath, type, ffff);
         }
+
         [HttpPost]
-        public ActionResult Post(string message, HttpPostedFileBase file)
+        public ActionResult Post(string message, HttpPostedFileBase file, int groupid)
         {
             if (!System.IO.Directory.Exists(Server.MapPath("~/SlackStore/")))
             {
@@ -51,20 +59,26 @@ namespace Synapsr.Controllers
                 var ext = System.IO.Path.GetExtension(file.FileName);
                 filename = Guid.NewGuid() + ext;
                 file.SaveAs(Server.MapPath("~/SlackStore/" + filename));
+                SaveConventions(filename, file.FileName);
+                scl.Post(new Slack.Webhooks.SlackMessage
+                {
+                    Text = message + ": " + ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/Slack/Download/?fileguid=" + filename + "&type=" + file.ContentType), false)
+                });
+                ViewBag.status = "ok";
+                return View("Index");
             }
-            SaveConventions(filename, file.FileName);
-            scl.Post(new Slack.Webhooks.SlackMessage
+            else
             {
-                Text = message + ": " + ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/Slack/Download/?fileguid=" + filename + "&type=" + file.ContentType), false)
-            });
-            return View();
+                ViewBag.status = "err";
+                return View("Index");
+            }
         }
 
         public void SaveConventions(string currentname,string initialname)
         {
             var jsonstring = System.IO.File.ReadAllText(Server.MapPath("~/Content/Sett/json.json"));
             var filnms = Newtonsoft.Json.JsonConvert.DeserializeObject<Rootobject>(jsonstring);
-            filnms.filnames.Add(new Filname { currname = currentname, initname = initialname });
+            filnms.filnames.Add(new Filename { currname = currentname, initname = initialname });
             var outp = Newtonsoft.Json.JsonConvert.SerializeObject(filnms, Newtonsoft.Json.Formatting.Indented);
             System.IO.File.WriteAllText(Server.MapPath("~/Content/Sett/json.json"), outp);
         }

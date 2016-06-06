@@ -1,4 +1,7 @@
-﻿@model List<Synapsr.Logistics.TimeTable.Event>
+﻿@{ 
+    ViewBag.Title = "Organizr";
+}
+@model List<Synapsr.Logistics.TimeTable.Event>
 @Styles.Render("~/bundles/styles/timetable")
 <div class="row">
     <div class="col-md-1 pull-right">
@@ -20,6 +23,7 @@
 </div>
 
 @Scripts.Render("~/bundles/timetable")
+@section scripts{
 <script>
     function ShowDetails(id) {
         $.ajax({
@@ -30,9 +34,6 @@
             }
         });
     }
-</script>
-<script>
-
     var timetable = new Timetable();
     timetable.setScope(8, 18);
     timetable.addLocations(['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri']);
@@ -51,6 +52,5 @@
     for (var i = 0; i < evs.length; i++) {
         evs[i].setAttribute("onclick", "ShowDetails(" + i + ");");
     }
-    debugger;
-
 </script>
+}

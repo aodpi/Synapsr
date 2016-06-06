@@ -1,28 +1,69 @@
-﻿
+﻿@{ 
+    ViewBag.Title = "Slack";
+}
 <div class="row">
-    <div class="col-md-6">
-        <img src="~/Content/Images/SlackBranding/Slack Monochrome Black.png" width="428" height="200" />
-    </div>
-    <div class="col-md-6">
-        @using (Html.BeginForm("Post", "Slack", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-        {
-
-            <div class="form-group">
-                <label for="message" class="control-label col-md-4">Message :</label>
-                <div class="col-md-8">
-                    <input type="text" name="message" class="form-control" />
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                <label for="file" class="control-label col-md-4">Document file</label>
-                <div class="col-md-8"><input type="file" name="file" /></div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <input type="submit" value="Submit" class="btn btn-primary" />
-                </div>
-            </div>
+    <div class="col-md-12">
+        <img src="~/Content/Images/SlackBranding/Slack Monochrome Black.png" class="img-responsive center-block" width="428" height="200" />
+        <div class="well">
+            <p align="justify">
+                Slack is a web chat for teams. With the help of slack we provide a solution to help teachers send lab work to students.
+                Just fill the message and choose a document file containing lab work (word or pdf) and press submit. Students in the general
+                channel will receive a message from a bot containing a link and a message so students can start working.
+            </p>
+        </div>
+        @{
+            switch ((string)ViewBag.status)
+            {
+                case "ok":
+                    <div class="alert alert-success">
+                        Posted
+                    </div>
+                    break;
+                case "err":
+                    <div class="alert alert-danger">
+                        Error. Some values were not correct.
+                    </div>
+                    break;
+                default:
+                    break;
+            }
         }
+        @using (Html.BeginForm("Post", "Slack", FormMethod.Post, new { @enctype = "multipart/form-data", @role = "form" }))
+        {
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group center-block">
+                        <div class="col-md-8">
+                            <input type="text" placeholder="Message" name="message" class="form-control" />
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-8"><input type="file" name="file" /></div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            @{
+                                var ls = new[] {
+                                    new { name = "IA131", value = "1" },
+                                    new { name = "MN131", value = "2" }
+                                }.ToList();
+                                @Html.DropDownList("groupid", new SelectList(ls, "value", "name"), new { @class = "form-control" });
+                                    }
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-8">
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                                }
     </div>
 </div>

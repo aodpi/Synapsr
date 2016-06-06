@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     DatabaseStore db = new DatabaseStore();
 }
 <!DOCTYPE html>
@@ -6,7 +6,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="shortcut icon" href="~/Content/favicon.ico" />
+    <title>@ViewBag.Title - Catedra IA</title>
     @Styles.Render("~/bundles/styles/bootstrap")
     @Styles.Render("~/bundles/styles/local")
     @Scripts.Render("~/bundles/modernizr")
@@ -24,18 +25,15 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="@Url.Action("StructCat","Home")">Structura Catedrei</a></li>
-                    <li><a href="@Url.Action("Index","Organizr",null)">Organizr</a></li>
+                    <li><a href="@Url.Action("StructCat", "Home")">Structura Catedrei</a></li>
+                    <li><a href="@Url.Action("Index", "Organizr", null)">Organizr</a></li>
                     @{
-                        if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+                        var xx = Synapsr.Logistics.AccountManager.GetCurrentUser();
+                        if (xx != null)
                         {
-                            HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-                            FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                            var currusr = db.Users.FirstOrDefault(u => u.UserName == authTicket.Name);
-                            var elev = db.Elevations.FirstOrDefault(e => e.Id == currusr.ElevationId);
-                            if (elev.ElevationName=="Teacher")
+                            if (xx.Item2.ElevationName == "Teacher")
                             {
-                                <li><a href="@Url.Action("Index","Slack",null)">Slack</a></li>
+                                <li><a href="@Url.Action("Index", "Slack", null)">Slack</a></li>
                             }
                         }
                     }
@@ -49,16 +47,16 @@
         @RenderBody()
     </div>
     @Html.Partial("LoginFormPartial")
-  
     @Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/bootstrap")
-	@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
     <script type="text/javascript">
-	
+
         @if (Request.QueryString["Err"] != null)
         {
                @:$("#login-modal").modal("show");
-        }
+                }
     </script>
 </body>
 </html>
