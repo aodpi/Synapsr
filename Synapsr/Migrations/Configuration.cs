@@ -28,6 +28,14 @@ namespace Synapsr.Migrations
                 new Models.Specialitate { Name = "Management Informational" });
             context.SaveChanges();
 
+            context.Groups.AddOrUpdate(f=>f.Name,
+                new Models.Group { Name = "IA131", Year = Convert.ToInt32(13) == DateTime.Now.Year ? 13 : (DateTime.Now.Year - 13) % 2000 });
+            context.SaveChanges();
+
+            context.RegCodes.AddOrUpdate(a => a.code,
+                new Models.RegCode { code = "123alpha", GroupId = 1 });
+            context.SaveChanges();
+
             context.Users.AddOrUpdate(u => u.UserName,
                 new Models.User
                 {
@@ -39,7 +47,8 @@ namespace Synapsr.Migrations
                     FirstName = "Valeriu",
                     LastName = "Balan",
                     Email = "balan.valeriu@live.com",
-                    Sex = "Male"
+                    Sex = "Male",
+                    GroupId = 1,
                 });
             context.SaveChanges();
 
@@ -50,9 +59,8 @@ namespace Synapsr.Migrations
                 Grade = "Lector Superior"
             });
             context.SaveChanges();
-            context.Groups.Add(
-                new Models.Group { Name = "IA131", Year = Convert.ToInt32(13) == DateTime.Now.Year ? 13 : (DateTime.Now.Year - 13)%2000 });
-            context.SaveChanges();
+
+            
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //

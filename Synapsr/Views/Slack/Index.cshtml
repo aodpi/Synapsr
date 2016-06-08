@@ -7,8 +7,8 @@
         <div class="well">
             <p align="justify">
                 Slack is a web chat for teams. With the help of slack we provide a solution to help teachers send lab work to students.
-                Just fill the message and choose a document file containing lab work (word or pdf) and press submit. Students in the general
-                channel will receive a message from a bot containing a link and a message so students can start working.
+                Just fill the message and choose a document file containing lab work (word or pdf) and press submit. Students in the
+                channel with respective group name will receive a message from a bot containing a link and a message so students can start working.
             </p>
         </div>
         @{
@@ -46,11 +46,8 @@
                     <div class="form-group">
                         <div class="col-md-8">
                             @{
-                                var ls = new[] {
-                                    new { name = "IA131", value = "1" },
-                                    new { name = "MN131", value = "2" }
-                                }.ToList();
-                                @Html.DropDownList("groupid", new SelectList(ls, "value", "name"), new { @class = "form-control" });
+                                DatabaseStore db = new DatabaseStore();
+                                @Html.DropDownList("groupid", new SelectList(db.Groups, "Name", "Name"), new { @class = "form-control" });
                                     }
                         </div>
                     </div>

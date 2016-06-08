@@ -12,5 +12,8 @@ namespace Synapsr.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Year { get; set; }
+
+        public virtual ICollection<RegCode> RegCodes { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

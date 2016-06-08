@@ -3,7 +3,7 @@ namespace Synapsr.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -38,19 +38,6 @@ namespace Synapsr.Migrations
                 .Index(t => t.ElevationId);
             
             CreateTable(
-                "dbo.notification_channels",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        NotificationType = c.String(),
-                        NotificationChannelUri = c.String(),
-                        UserId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.users", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
                 "dbo.specialitati",
                 c => new
                     {
@@ -60,14 +47,26 @@ namespace Synapsr.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.grupe",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Year = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.reg_codes",
                 c => new
                     {
                         id = c.Int(nullable: false, identity: true),
                         code = c.String(),
-                        type = c.String(),
+                        GroupId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.id);
+                .PrimaryKey(t => t.id)
+                .ForeignKey("dbo.grupe", t => t.GroupId, cascadeDelete: true)
+                .Index(t => t.GroupId);
             
             CreateTable(
                 "dbo.teachers",
@@ -84,16 +83,16 @@ namespace Synapsr.Migrations
         
         public override void Down()
         {
+            DropForeignKey("dbo.reg_codes", "GroupId", "dbo.grupe");
             DropForeignKey("dbo.users", "IdSpecialitate", "dbo.specialitati");
-            DropForeignKey("dbo.notification_channels", "UserId", "dbo.users");
             DropForeignKey("dbo.users", "ElevationId", "dbo.elevations");
-            DropIndex("dbo.notification_channels", new[] { "UserId" });
+            DropIndex("dbo.reg_codes", new[] { "GroupId" });
             DropIndex("dbo.users", new[] { "ElevationId" });
             DropIndex("dbo.users", new[] { "IdSpecialitate" });
             DropTable("dbo.teachers");
             DropTable("dbo.reg_codes");
+            DropTable("dbo.grupe");
             DropTable("dbo.specialitati");
-            DropTable("dbo.notification_channels");
             DropTable("dbo.users");
             DropTable("dbo.elevations");
         }

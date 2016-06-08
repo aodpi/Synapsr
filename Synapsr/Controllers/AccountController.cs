@@ -47,6 +47,7 @@ namespace Synapsr.Controllers
                     mdl.AvatarImage.SaveAs(Server.MapPath("~/UserStore/" + mdl.UserName + "/" + mdl.AvatarImage.FileName));
                     if (usr == null)
                     {
+                        var x = db.RegCodes.FirstOrDefault(u => u.code == mdl.RegCode);
                         db.Users.Add(new User()
                         {
                             UserName = mdl.UserName,
@@ -57,7 +58,8 @@ namespace Synapsr.Controllers
                             FirstName = mdl.FirstName,
                             LastName = mdl.LastName,
                             Email = mdl.Email,
-                            Sex = mdl.Sex
+                            Sex = mdl.Sex,
+                            GroupId = x.GroupId
                         });
                         db.SaveChanges();
                     }

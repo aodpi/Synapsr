@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <a class="text-center" href="@Url.Content("~/UserStore/" + db.Users.GetUserAvatar(authTicket.Name))"><center><img src="@Url.Content("~/UserStore/" + db.Users.GetUserAvatar(authTicket.Name))" class="img-thumbnail" style="width:250px;height:250px" /></center></a>
+                    <a class="text-center" href="@Url.Content("~/UserStore/" + db.Users.GetUserAvatar(authTicket.Name))"><center><img style="margin-top:20px" src="@Url.Content("~/UserStore/" + db.Users.GetUserAvatar(authTicket.Name))" class="img-thumbnail" style="width:250px;height:250px" /></center></a>
                 </div>
                 <div class="col-md-9">
                     <ul class="list-group" style="margin-top:20px">
@@ -17,6 +17,8 @@
                         <li class="list-group-item"><b>Specialitatea: </b> @db.Specialities.FirstOrDefault(u => u.Id == currusr.IdSpecialitate).Name</li>
                         <li class="list-group-item"><b>Username: </b>@currusr.UserName</li>
                         <li class="list-group-item"><b>Sex: </b>@currusr.Sex</li>
+                        <li class="list-group-item"><b>Grupa: </b>@(db.Groups.FirstOrDefault(u=>u.Id==currusr.GroupId).Name)</li>
+                        <li class="list-group-item"><b>Anul: </b>@(db.Groups.FirstOrDefault(u=>u.Id==currusr.GroupId).Year)</li>
                     </ul>
                 </div>
             </div>

@@ -20,6 +20,7 @@ namespace Synapsr
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DatabaseStore, Configuration>());
+            
         }
     }
 }

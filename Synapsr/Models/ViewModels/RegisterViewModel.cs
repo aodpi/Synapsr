@@ -54,5 +54,8 @@ namespace Synapsr.Models.ViewModels
         public HttpPostedFileBase AvatarImage { get; set; }
 
         public string Sex { get; set; }
+
+        [Required]
+        public string RegCode { get; set; }
     }
 }

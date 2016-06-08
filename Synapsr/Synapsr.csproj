@@ -43,10 +43,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=16.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <HintPath>..\packages\AjaxControlToolkit.16.1.0.0\lib\net40\AjaxControlToolkit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
@@ -159,6 +155,10 @@
     <Content Include="bundles\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="bundles\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="bundles\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\IIS.pubxml" />
+    <None Include="Properties\PublishProfiles\Synapsr - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\Synapsr - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\Synapsr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -174,7 +174,6 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\Sett\json.json" />
-    <None Include="Properties\PublishProfiles\Synapsr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.2.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -195,25 +194,24 @@
     <Compile Include="Controllers\OrganizrController.cs" />
     <Compile Include="Controllers\SlackController.cs" />
     <Compile Include="Extensions\Account.cs" />
-    <Compile Include="Extensions\DBInstance.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Logistics\AccountManager.cs" />
+    <Compile Include="Logistics\GroupsManagement.cs" />
     <Compile Include="Logistics\Timetable.cs" />
-    <Compile Include="Migrations\201606061017188_Initial.cs" />
-    <Compile Include="Migrations\201606061017188_Initial.Designer.cs">
-      <DependentUpon>201606061017188_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201606061815198_Init.cs" />
+    <Compile Include="Migrations\201606061815198_Init.Designer.cs">
+      <DependentUpon>201606061815198_Init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201606061341549_groups.cs" />
-    <Compile Include="Migrations\201606061341549_groups.Designer.cs">
-      <DependentUpon>201606061341549_groups.cs</DependentUpon>
+    <Compile Include="Migrations\201606061817538_Init2.cs" />
+    <Compile Include="Migrations\201606061817538_Init2.Designer.cs">
+      <DependentUpon>201606061817538_Init2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseStore.cs" />
     <Compile Include="Models\Elevation.cs" />
     <Compile Include="Models\Group.cs" />
-    <Compile Include="Models\NotificationChannel.cs" />
     <Compile Include="Models\RegCode.cs" />
     <Compile Include="Models\Specialitate.cs" />
     <Compile Include="Models\Teacher.cs" />
@@ -239,6 +237,7 @@
     <Content Include="Views\Slack\Index.cshtml" />
     <Content Include="Views\Organizr\Index.cshtml" />
     <Content Include="Views\Home\StructCat.cshtml" />
+    <Content Include="Views\Organizr\AddSubject.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -250,11 +249,11 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606061017188_Initial.resx">
-      <DependentUpon>201606061017188_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606061815198_Init.resx">
+      <DependentUpon>201606061815198_Init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606061341549_groups.resx">
-      <DependentUpon>201606061341549_groups.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201606061817538_Init2.resx">
+      <DependentUpon>201606061817538_Init2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

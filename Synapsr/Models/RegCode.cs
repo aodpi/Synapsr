@@ -12,6 +12,10 @@ namespace Synapsr.Models
     {
         public int id { get; set; }
         public string code { get; set; }
-        public string type { get; set; }
+
+        [ForeignKey("Group")]
+        public int GroupId { get; set; }
+
+        public virtual Group Group { get; set; }
     }
 }

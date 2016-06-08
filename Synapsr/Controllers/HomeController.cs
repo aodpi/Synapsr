@@ -12,6 +12,10 @@ namespace Synapsr.Controllers
 {
     public class HomeController : Controller
     {
+        public void Test()
+        {
+            Logistics.GroupsManagement.AddGroupsForCurrentYear(3, "IA");
+        }
         // GET: Home
         public ActionResult Index()
         {

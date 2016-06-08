@@ -25,12 +25,16 @@ namespace Synapsr.Controllers
         public ActionResult Index()
         {
             var xx = Logistics.AccountManager.GetCurrentUser();
-            if (xx!=null)
+            switch (xx == null)
             {
-                if (xx.Item2.ElevationName!="Teacher")
-                {
+                case true:
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
-                }
+                case false:
+                    if (xx.Item2.ElevationName != "Teacher")
+                    {
+                        return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
+                    }
+                    break;
             }
             return View();
         }
@@ -47,7 +51,7 @@ namespace Synapsr.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(string message, HttpPostedFileBase file, int groupid)
+        public ActionResult Post(string message, HttpPostedFileBase file, string groupid)
         {
             if (!System.IO.Directory.Exists(Server.MapPath("~/SlackStore/")))
             {
@@ -62,7 +66,8 @@ namespace Synapsr.Controllers
                 SaveConventions(filename, file.FileName);
                 scl.Post(new Slack.Webhooks.SlackMessage
                 {
-                    Text = message + ": " + ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/Slack/Download/?fileguid=" + filename + "&type=" + file.ContentType), false)
+                    Text = message + ": " + ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/Slack/Download/?fileguid=" + filename + "&type=" + file.ContentType), false),
+                    Channel = groupid.ToLower()
                 });
                 ViewBag.status = "ok";
                 return View("Index");

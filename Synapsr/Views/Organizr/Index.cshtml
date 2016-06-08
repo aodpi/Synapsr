@@ -1,11 +1,43 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Organizr";
 }
-@model List<Synapsr.Logistics.TimeTable.Event>
+@model Synapsr.Logistics.TimeTable
 @Styles.Render("~/bundles/styles/timetable")
 <div class="row">
-    <div class="col-md-1 pull-right">
-        <b>Saptamina: pară.</b>
+    @{
+        var crs = Synapsr.Logistics.AccountManager.GetCurrentUser();
+        if (crs != null)
+        {
+            if (crs.Item2.ElevationName == "Teacher")
+            {
+                <div class="col-md-5">
+                    <a href="@Url.Action("AddSubject","Organizr")" class="btn btn-primary">Adauga</a>
+                </div>
+                <div class="col-md-5">
+                    @{ 
+                        DatabaseStore db = new DatabaseStore();
+                        var xx = Synapsr.Logistics.AccountManager.GetCurrentUser();
+                        var curgr = db.Groups.FirstOrDefault(f => f.Id == xx.Item1.GroupId);
+                        <select class="form-control" onchange="ChangeGroup(this.value)">
+                            <option value="@curgr.Name">@curgr.Name</option>
+                            @{
+                                foreach (var item in db.Groups)
+                                {
+                                    if (item.Name != curgr.Name)
+                                    {
+                                        <option value="@item.Name">@item.Name</option>
+                                    }
+
+                                }
+                            }
+                        </select>
+                    }
+                </div>
+            }
+        }
+    }
+    <div class="col-md-2 pull-right">
+        <b>Saptamina @Model.TipSaptamina</b>
     </div>
 </div>
 
@@ -19,38 +51,83 @@
         <div id="tdetail" style="margin-top:30px">
 
         </div>
+        
     </div>
 </div>
-
 @Scripts.Render("~/bundles/timetable")
 @section scripts{
-<script>
-    function ShowDetails(id) {
-        $.ajax({
-            url: '@Url.Action("ShowDetails","Organizr")' + "?id=" + id,
-            type: 'GET',
-            success: function (result) {
-                $('#tdetail').html(result);
+    <script>
+        function ChangeGroup(gr) {
+            
+            window.location ='@(Url.Action("ChangeGroup"))' +"?grname=" + gr;
+        }
+        var idx;
+        function ShowDetails(id, isodd) {
+            isodd = isodd || false;
+            idx = id;
+            if (isodd) {
+                $.ajax({
+                    url: '@Url.Action("ShowDetails","Organizr")' + "?id=" + id+"&isodd=true",
+                    type: 'GET',
+                    success: function (result) {
+                        $('#tdetail').html(result);
+                    }
+                });
             }
-        });
-    }
-    var timetable = new Timetable();
-    timetable.setScope(8, 18);
-    timetable.addLocations(['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri']);
-    @{
-    var xx = DateTime.Now;
-    foreach (var item in Model)
-    {
-            @:timetable.addEvent("@(item.obiect)", "@(item.zi)", new Date("@(item.start_date)"), new Date("@(item.end_date)"), '@(item.link)');
-                            }
-    }
+            else {
+                $.ajax({
+                    url: '@Url.Action("ShowDetails","Organizr")' + "?id=" + id,
+                    type: 'GET',
+                    success: function (result) {
+                        $('#tdetail').html(result);
+                    }
+                });
+            }
+        }
 
-    var renderer = new Timetable.Renderer(timetable);
-    renderer.draw('.timetable');
-
-    var evs = document.getElementsByClassName('time-entry');
-    for (var i = 0; i < evs.length; i++) {
-        evs[i].setAttribute("onclick", "ShowDetails(" + i + ");");
+        function Delete() {
+            $.ajax({
+                url: '@Url.Action("Remove","Organizr")' + "?id=" + idx,
+                type: 'GET',
+                success: function (result) {
+                    alert("OK");
+                }
+            })
+        }
+        var timetable = new Timetable();
+        timetable.setScope(8, 18);
+        timetable.addLocations(['Luni', 'Marti', 'Miercuri', 'Joi', 'Vineri']);
+        @{
+            var xx = DateTime.Now;
+            foreach (var item in Model.Events)
+            {
+                    @:timetable.addEvent("@(item.obiect+" " +item.auditoriu)", "@(item.zi)", new Date("@(item.start_date)"), new Date("@(item.end_date)"), '');
+                                        }
+            if (Model.TipSaptamina=="impară")
+            {
+                foreach (var item in Model.EventsI)
+                {
+                    @:timetable.addEvent("@(item.obiect+ " " +item.auditoriu)", "@(item.zi)", new Date("@(item.start_date)"), new Date("@(item.end_date)"), '#');
+                }
+            }
     }
-</script>
+        var renderer = new Timetable.Renderer(timetable);
+        renderer.draw('.timetable');
+
+        var evs = document.getElementsByClassName('time-entry');
+        var xx = 0;
+        for (var i = 0; i < evs.length; i++) {
+            if (evs[i].attributes['href']==null) {
+                evs[i].setAttribute("onclick", "ShowDetails(" + xx + ");");
+                xx += 1;
+            }
+        }
+        var cnt=0;
+        for (var i = 0; i < evs.length; i++) {
+            if (evs[i].attributes['href']!=null) {
+                evs[i].setAttribute("onclick", "ShowDetails(" + cnt + ",true);");
+                cnt += 1;
+            }
+        }
+    </script>
 }

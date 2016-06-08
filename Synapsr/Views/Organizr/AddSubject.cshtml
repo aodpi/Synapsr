@@ -1,0 +1,48 @@
+﻿@model Synapsr.Logistics.TimeTable.Event
+@{
+    ViewBag.Title = "AddSubject";
+}
+
+@using (Html.BeginForm("Add", "Organizr", FormMethod.Post))
+{
+    <div class="col-md-6">
+        <label for="zi">Zi:</label>
+        <select name="zi" class="form-control">
+            <option>Luni</option>
+            <option>Marti</option>
+            <option>Miercuri</option>
+            <option>Joi</option>
+            <option>Vineri</option>
+        </select>
+        <br />
+        <label for="start_date">Inceput:</label>
+        <input type="time" name="start_date" class="form-control" required />
+        <br />
+        <label for="end_date">Sfarsit:</label>
+        <input type="time" name="end_date" class="form-control" required />
+        <br />
+        <label for="obiect">
+            Obiect (nume scurt):
+        </label>
+        <input type="text" name="obiect" class="form-control" required />
+        <br />
+        <label for="long_name">Obiect (nume lung):</label>
+        <input type="text" name="long_name" class="form-control" required/>
+        <br />
+        <label for="auditoriu">
+            Auditoriu:
+        </label>
+        <input type="text" name="auditoriu" class="form-control" required/>
+        <br />
+        <label for="profesor">Profesor:</label>
+        <input type="text" name="profesor" class="form-control" required />
+        <br />
+        <label for="grname">Grupa</label>
+        @Html.DropDownList("grname", null,new { @class = "form-control" })
+        <br />
+        <label for="isodd">Impara</label>
+        <input type="checkbox" name="isodd" value="true"/>
+        <input type="submit" value="Submit" class="form-control" required />
+    </div>
+}
+

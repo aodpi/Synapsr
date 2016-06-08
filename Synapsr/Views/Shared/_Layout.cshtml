@@ -26,7 +26,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="@Url.Action("StructCat", "Home")">Structura Catedrei</a></li>
-                    <li><a href="@Url.Action("Index", "Organizr", null)">Organizr</a></li>
                     @{
                         var xx = Synapsr.Logistics.AccountManager.GetCurrentUser();
                         if (xx != null)
@@ -35,6 +34,7 @@
                             {
                                 <li><a href="@Url.Action("Index", "Slack", null)">Slack</a></li>
                             }
+                            <li><a href="@Url.Action("Index", "Organizr", null)">Organizr</a></li>
                         }
                     }
                     <li>@Html.ActionLink("Istoric", "Timeline", "Home")</li>

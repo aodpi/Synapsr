@@ -34,8 +34,9 @@ namespace Synapsr.Models
         [DisplayName("Elevation"),Display(Name ="Elevation")]
         public virtual Elevation Elevation { get; set; }
 
-        public virtual ICollection<NotificationChannel> NotificationChannels { get; set; }
-
+        [ForeignKey("Group")]
+        public int GroupId { get; set; }
+        public Group Group { get; set; }
         public string avatar_uri { get; set; }
     }
 }
