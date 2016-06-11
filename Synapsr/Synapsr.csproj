@@ -80,6 +80,7 @@
       <HintPath>..\packages\Slack.Webhooks.0.1.6\lib\net40\Slack.Webhooks.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -155,11 +156,17 @@
     <Content Include="bundles\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="bundles\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="bundles\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Models\DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <None Include="Properties\PublishProfiles\Synapsr - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Synapsr - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Synapsr - Web Deploy.pubxml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.bootstrap.newsbox.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -210,6 +217,11 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\DatabaseStore.cs" />
+    <Compile Include="Models\DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Elevation.cs" />
     <Compile Include="Models\Group.cs" />
     <Compile Include="Models\RegCode.cs" />
@@ -255,6 +267,12 @@
     <EmbeddedResource Include="Migrations\201606061817538_Init2.resx">
       <DependentUpon>201606061817538_Init2.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Models\DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

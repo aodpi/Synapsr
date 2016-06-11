@@ -1,21 +1,82 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Acasa";
 }
-<div class="row">
-    <div class="col-md-6">
-        <div class="page-header">
-            <h1>Despre UTM</h1>
-        </div>
 
-        <p align="justify">
-            Universitatea tehnica a moldovei a fost fondata in anul 1964, cu denumirea initiala "institutul politehnic din chisinau", in baza unor specialitati ingineresti si economice transferate de la universitatea de stat din moldova. In primul an de studii (1964 - 1965) universitatea avea 5140 de studenti (dintre care 2085 la sectia de zi), grupati la 5 facultati: electrotehnica, mecanica, tehnologie, constructii, economie. Corpul didactic numara 278 profesori, dintre care numai 36 aveau grade didactice si titluri stiintifice.
-            In anii urmatori universitatea a crescut atit cantitativ, cit si calitativ, a devenit un mare centru de invatamint, stiintific si de cultura...    In prezent, universitatea tehnica a moldovei are un contingent de cca. 18340 de studenti (dintre care 12910 la sectia de zi), care isi fac studiile la 80 de specialitati si specializari, in cadrul a 10 facultati: "energetica", "inginerie si management in constructia de masini", "inginerie si management in mecanica", "calculatoare, informatica si microelectronica", "radioelectronica si telecomunicatii", "tehnologie si management in industria alimentara", "industrie usoara", "cadastru, geodezie si constructii", "urbanism si arhitectura", "inginerie economica si business".
-            La utm este organizat si invatamintul postuniversitar (430 de masteranzi si 134 de doctoranzi), functioneaza cursuri de reciclare si de perfectionare a cadrelor.
-            In cei 44 de ani de existenta au fost pregatiti peste 64900 de specialisti.
-            In cadrul utm functioneaza o biblioteca tehnico-stiintifica cu sali de lectura, cabinete de proiectare, centre informatice.
-        </p>
-    </div>
-    <div class="col-md-6">
+
+<style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #40d47e;
+            border-bottom: 16px solid #e67e22;
+            border-left: 16px solid #c0392b;
+            border-right: 16px solid #2c3e50;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 3s linear infinite;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+
+<div class="loader" style="width:30px;height:30px"></div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-list-alt"></span><b>News</b>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul id="demo3" >
+                            <li class="news-item">
+                                Curabitur porttitor ante eget hendrerit adipiscing. Maecenas at magna accumsan,
+                                rhoncus neque id, fringilla dolor. <a href="#">Read more...</a>
+                            </li>
+                            <li class="news-item">
+                                Curabitur porttitor ante eget hendrerit adipiscing. Maecenas at magna accumsan,
+                                rhoncus neque id, fringilla dolor. <a href="#">Read more...</a>
+                            </li>
+                            <li class="news-item">
+                                Praesent ornare nisl lorem, ut condimentum lectus gravida ut. Ut velit nunc, vehicula
+                                volutpat laoreet vel, consequat eu mauris. <a href="#">Read more...</a>
+                            </li>
+                            <li class="news-item">
+                                Nunc ultrices tortor eu massa placerat posuere. Vivamus viverra sagittis nunc. Nunc
+                                et imperdiet magna. Mauris sed eros nulla. <a href="#">Read more...</a>
+                            </li>
+                            <li class="news-item">
+                                Morbi sodales tellus sit amet leo congue bibendum. Ut non mauris eu neque fermentum
+                                pharetra. <a href="#">Read more...</a>
+                            </li>
+                            <li class="news-item">
+                                In pharetra suscipit orci sed viverra. Praesent at sollicitudin tortor, id sagittis
+                                magna. Fusce massa sem, bibendum id. <a href="#">Read more...</a>
+                            </li>
+                            <li class="news-item">
+                                Maecenas nec ligula sed est suscipit aliquet sed eget ipsum. Suspendisse id auctor
+                                nibh. Ut porttitor volutpat augue, non sodales odio dignissi id. <a href="#">Read more...</a>
+                            </li>
+                            <li class="news-item">
+                                Onec bibendum consectetur diam, nec euismod urna venenatis eget. Cras consequat
+                                convallis leo. <a href="#">Read more...</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    <div class="col-md-8">
         <div class="page-header">
             <h1>Despre Informatica Aplicata</h1>
         </div>
@@ -48,3 +109,48 @@
         </p>
     </div>
 </div>
+<style>
+    .glyphicon
+{
+    margin-right:4px !important; /*override*/
+}
+
+.pagination .glyphicon
+{
+    margin-right:0px !important; /*override*/
+}
+
+.pagination a
+{
+    color:#555;
+}
+
+.panel ul
+{
+    padding:0px;
+    margin:0px;
+    list-style:none;
+}
+
+.news-item
+{
+    padding:4px 4px;
+    margin:0px;
+    border-bottom:1px dotted #555; 
+}
+</style>
+@section scripts{
+    <script type="text/javascript" src="~/Scripts/jquery.bootstrap.newsbox.min.js"></script>
+    <script>
+        $(function () {
+            $("#demo3").bootstrapNews({
+                newsPerPage: 3,
+                autoplay: false,
+
+                onToDo: function () {
+                    //console.log(this);
+                }
+            });
+        });
+    </script>
+}
