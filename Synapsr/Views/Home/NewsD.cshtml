@@ -1,0 +1,10 @@
+﻿@model News
+@{
+    ViewBag.Title = "NewsD";
+}
+@if (Model != null)
+{
+    <h1>@Model.title</h1>
+    @Html.Raw(Model.body)
+}
+

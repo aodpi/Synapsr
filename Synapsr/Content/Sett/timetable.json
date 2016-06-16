@@ -1,6 +1,6 @@
 {
-  "oldDate": "06/06/16 21:04:00",
-  "type": "impară",
+  "oldDate": "06/13/16 22:22:00",
+  "type": "pară",
   "events": [
     {
       "groupname": "IA131",
@@ -8,18 +8,9 @@
         {
           "obiect": "MS",
           "zi": "Luni",
-          "start_date": "06/06/16 09:35:00",
-          "end_date": "06/06/16 10:55:00",
+          "start_date": "06/06/16 08:00:00",
+          "end_date": "06/06/16 09:20:00",
           "long_name": "Modelarea Sistemelor",
-          "auditoriu": "609",
-          "profesor": "Stefan Marin"
-        },
-        {
-          "obiect": "IST",
-          "zi": "Miercuri",
-          "start_date": "06/06/16 09:35:00",
-          "end_date": "06/06/16 10:55:00",
-          "long_name": "Interpretarea Semantica a Textului",
           "auditoriu": "609",
           "profesor": "Victoria Bobicev"
         }
@@ -28,6 +19,16 @@
     },
     {
       "groupname": "IA151",
+      "evs": [],
+      "evsi": []
+    },
+    {
+      "groupname": "MI131",
+      "evs": [],
+      "evsi": []
+    },
+    {
+      "groupname": "IA161",
       "evs": [],
       "evsi": []
     }

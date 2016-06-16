@@ -29,22 +29,16 @@ namespace Synapsr.Migrations
                         Password = c.String(nullable: false, maxLength: 200),
                         IdSpecialitate = c.Int(nullable: false),
                         ElevationId = c.Int(nullable: false),
+                        GroupId = c.Int(nullable: false),
                         avatar_uri = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.elevations", t => t.ElevationId, cascadeDelete: true)
+                .ForeignKey("dbo.grupe", t => t.GroupId, cascadeDelete: true)
                 .ForeignKey("dbo.specialitati", t => t.IdSpecialitate, cascadeDelete: true)
                 .Index(t => t.IdSpecialitate)
-                .Index(t => t.ElevationId);
-            
-            CreateTable(
-                "dbo.specialitati",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
+                .Index(t => t.ElevationId)
+                .Index(t => t.GroupId);
             
             CreateTable(
                 "dbo.grupe",
@@ -69,13 +63,23 @@ namespace Synapsr.Migrations
                 .Index(t => t.GroupId);
             
             CreateTable(
-                "dbo.teachers",
+                "dbo.specialitati",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Firstname = c.String(),
-                        Lastname = c.String(),
-                        Grade = c.String(),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.news",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        pic_url = c.String(),
+                        title = c.String(nullable: false),
+                        body = c.String(nullable: false),
+                        date_published = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -83,16 +87,18 @@ namespace Synapsr.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.reg_codes", "GroupId", "dbo.grupe");
             DropForeignKey("dbo.users", "IdSpecialitate", "dbo.specialitati");
+            DropForeignKey("dbo.users", "GroupId", "dbo.grupe");
+            DropForeignKey("dbo.reg_codes", "GroupId", "dbo.grupe");
             DropForeignKey("dbo.users", "ElevationId", "dbo.elevations");
             DropIndex("dbo.reg_codes", new[] { "GroupId" });
+            DropIndex("dbo.users", new[] { "GroupId" });
             DropIndex("dbo.users", new[] { "ElevationId" });
             DropIndex("dbo.users", new[] { "IdSpecialitate" });
-            DropTable("dbo.teachers");
+            DropTable("dbo.news");
+            DropTable("dbo.specialitati");
             DropTable("dbo.reg_codes");
             DropTable("dbo.grupe");
-            DropTable("dbo.specialitati");
             DropTable("dbo.users");
             DropTable("dbo.elevations");
         }

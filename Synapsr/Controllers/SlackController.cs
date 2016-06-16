@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
+using Synapsr.Logistics;
 
 namespace Synapsr.Controllers
 {
     public class SlackController : Controller
     {
+        private Slack.Webhooks.SlackClient scl = new Slack.Webhooks.SlackClient(AppVars.SlackWebHook);
 
+        #region SerializationStructure
         public class Rootobject
         { 
             public List<Filename> filnames { get; set; }
@@ -19,8 +23,8 @@ namespace Synapsr.Controllers
             public string currname { get; set; }
             public string initname { get; set; }
         }
+        #endregion
 
-        private Slack.Webhooks.SlackClient scl = new Slack.Webhooks.SlackClient("https://hooks.slack.com/services/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");
         // GET: Slack
         public ActionResult Index()
         {
@@ -51,31 +55,78 @@ namespace Synapsr.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post(string message, HttpPostedFileBase file, string groupid)
+        public ActionResult Post(string message, HttpPostedFileBase file, string groupid,bool general=false)
         {
-            if (!System.IO.Directory.Exists(Server.MapPath("~/SlackStore/")))
-            {
-                System.IO.Directory.CreateDirectory(Server.MapPath("~/SlackStore/"));
-            }
+            if (!Directory.Exists(Server.MapPath("~/SlackStore/")))
+                Directory.CreateDirectory(Server.MapPath("~/SlackStore/"));
             string filename = string.Empty;
-            if (file != null)
+            var curusr = Logistics.AccountManager.GetCurrentUser();
+            if (file != null && curusr!=null)
             {
-                var ext = System.IO.Path.GetExtension(file.FileName);
+                
+                var ext = Path.GetExtension(file.FileName);
                 filename = Guid.NewGuid() + ext;
                 file.SaveAs(Server.MapPath("~/SlackStore/" + filename));
                 SaveConventions(filename, file.FileName);
-                scl.Post(new Slack.Webhooks.SlackMessage
-                {
-                    Text = message + ": " + ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/Slack/Download/?fileguid=" + filename + "&type=" + file.ContentType), false),
-                    Channel = groupid.ToLower()
-                });
+
+                //Anunt general cu fisier.
+                if (general)
+                    scl.Post(new Slack.Webhooks.SlackMessage
+                    {
+                        Text = "Anunt:->  " +
+                        message +
+                        "  Fișier: " +
+                        ResolveServerUrl(
+                            VirtualPathUtility.ToAbsolute(
+                                "~/Slack/Download/?fileguid=" +
+                                filename +
+                                "&type=" +
+                                file.ContentType),
+                            false) + "  De la: " +
+                                curusr.Item1.FirstName + " " +
+                                curusr.Item1.LastName,
+                        Channel = "general"
+                    });
+                else
+                    //Sarcina de laborator pentru grupa.
+                    scl.Post(new Slack.Webhooks.SlackMessage
+                    {
+                        Text = message + ": " + ResolveServerUrl(VirtualPathUtility.ToAbsolute("~/Slack/Download/?fileguid=" + filename + "&type=" + file.ContentType), false) +
+                                "  De la: " +
+                                curusr.Item1.FirstName + " " +
+                                curusr.Item1.LastName,
+                        Channel = groupid.ToLower()
+                    });
                 ViewBag.status = "ok";
                 return View("Index");
             }
             else
             {
-                ViewBag.status = "err";
-                return View("Index");
+                var usr = curusr.Item1;
+                if (message == string.Empty)
+                {
+                    ViewBag.status = "err";
+                    return View("Index");
+                }
+                else
+                {
+                    if (general)
+                        //Anunt general fara fisier
+                        scl.Post(new Slack.Webhooks.SlackMessage
+                        {
+                            Text = "Anunt:->  " + message + "  De la: " + usr.FirstName + " " + usr.LastName,
+                            Channel = "general"
+                        });
+                    else
+                        //Anunt pentru grupa fara fisier
+                        scl.Post(new Slack.Webhooks.SlackMessage
+                        {
+                            Text = "Anunt:->  " + message + "  De la: " + usr.FirstName + " " + usr.LastName,
+                            Channel = groupid.ToLower()
+                        });
+                    ViewBag.status = "ok";
+                    return View("Index");
+                }
             }
         }
 

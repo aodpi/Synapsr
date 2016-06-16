@@ -40,15 +40,15 @@ namespace Synapsr.Models.ViewModels
         [Compare("Password",ErrorMessage = "Passwords are not the same"),DataType(DataType.Password),Display(Name ="Repeat password:")]
         public string RepeatPassword { get; set; }
 
-        [StringLength(40),Required]
+        [StringLength(40),Required,Display(Name ="Nume:")]
         public string FirstName { get; set; }
 
-        [StringLength(40),Required]
+        [StringLength(40),Required,Display(Name ="Prenume:")]
         public string LastName { get; set; }
 
-        [DataType(DataType.EmailAddress),Required]
+        [DataType(DataType.EmailAddress),Required,Display(Name = "Email:")]
         public string Email { get; set; }
-
+        [Display(Name ="Specialitate:")]
         public int Specialitate { get; set; }
 
         public HttpPostedFileBase AvatarImage { get; set; }

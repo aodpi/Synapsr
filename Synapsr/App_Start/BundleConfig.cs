@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Synapsr
 {
@@ -40,7 +36,6 @@ namespace Synapsr
 
             bundles.Add(new StyleBundle("~/bundles/styles/timetable").
                 Include("~/Content/timetablejs.css"));
-
             BundleTable.EnableOptimizations = true;
         }
     }

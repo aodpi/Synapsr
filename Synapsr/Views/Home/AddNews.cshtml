@@ -1,0 +1,20 @@
+﻿@model Synapsr.Models.ViewModels.NewsViewModel
+@{
+    ViewBag.Title = "AddNews";
+}
+
+@using (Html.BeginForm("AddNews", "Home", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="well">
+                <p>Adaugă o noutate pe site. Data publicării noutății va fi data curentă. Fiecare tastare a tastei "ENTER" va fi tratată ca începutul unui nou paragraf.</p>
+                @if (ViewBag.status == "success")
+                {
+                    <div class="alert alert-success">Noutate adaugata.</div>
+                }
+            </div>
+            @Html.EditorForModel("NewsEditor")
+        </div>
+    </div>
+}

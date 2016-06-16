@@ -34,7 +34,7 @@
                             {
                                 <li><a href="@Url.Action("Index", "Slack", null)">Slack</a></li>
                             }
-                            <li><a href="@Url.Action("Index", "Organizr", null)">Organizr</a></li>
+                            <li><a href="@Url.Action("Index", "Organizr", null)">Orar</a></li>
                         }
                     }
                     <li>@Html.ActionLink("Istoric", "Timeline", "Home")</li>
@@ -56,7 +56,7 @@
         @if (Request.QueryString["Err"] != null)
         {
                @:$("#login-modal").modal("show");
-                }
+        }
     </script>
 </body>
 </html>

@@ -7,20 +7,21 @@ using System.IO;
 using Newtonsoft.Json;
 using Synapsr.Models.ViewModels;
 using Synapsr.Logistics;
+using Synapsr.Models;
 
 namespace Synapsr.Controllers
 {
     public class OrganizrController : Controller
     {
-        
+        private Tuple<User, Elevation, DatabaseStore> _usrcontext = AccountManager.GetCurrentUser();
+        private string _filename = AppVars.TimetableFilename;
+
         [HttpGet]
         public string ShowDetails(int id,bool isodd=false)
         {
-            Synapsr.Models.DatabaseStore db = new Models.DatabaseStore();
-            string filename = Server.MapPath("~/Content/Sett/timetable.json");
-            var usr = AccountManager.GetCurrentUser();
-            var grname = db.Groups.FirstOrDefault(f => f.Id == usr.Item1.GroupId);
-            using (TimeTable tb = new TimeTable(filename,grname.Name))
+            var usr = _usrcontext.Item1;
+            var grname = _usrcontext.Item3.Groups.FirstOrDefault(f => f.Id == usr.GroupId);
+            using (TimeTable tb = new TimeTable(_filename,grname.Name))
             {
                 var currev = isodd ? tb.EventsI[id] : tb.Events[id];
                 string html = " <div class=\"well\">" +
@@ -46,11 +47,13 @@ namespace Synapsr.Controllers
                     "<b>Zi: </b>" + currev.zi +
                     "</div>" +
                     "</div>";
-                if (usr.Item2.ElevationName=="Teacher")
+                if (_usrcontext.Item2.ElevationName=="Teacher")
                 {
                     html+="<br/>"+ "<div class=\"row\">" +
                     "<div class=\"col-md-6\">" +
-                    "<a class=\"btn btn-default\" value=\"Delete\" href=\"" + Url.Action("Remove", "Organizr") + "?id=" + id + "&isodd="+isodd.ToString()+"\">Delete</button>" +
+                    "<a class=\"btn btn-default\" value=\"Delete\" href=\"" + 
+                    Url.Action("Remove", "Organizr") + "?id=" + id + 
+                    "&isodd="+isodd.ToString()+"\">Delete</button>" +
                     "</div>" +
                     "</div>";
                 }
@@ -61,54 +64,48 @@ namespace Synapsr.Controllers
         [HttpGet]
         public ActionResult ChangeGroup(string grname)
         {
-            Synapsr.Models.DatabaseStore db = new Models.DatabaseStore();
-            var xx = Synapsr.Logistics.AccountManager.GetCurrentUser();
-            if (xx!=null)
-            {
-                if (xx.Item2.ElevationName=="Teacher")
+            if (_usrcontext != null)
+                if (_usrcontext.Item2.ElevationName == "Teacher")
                 {
-                    var grid = db.Groups.FirstOrDefault(f => f.Name == grname).Id;
-                    var x = db.Users.FirstOrDefault(f => f.UserName == xx.Item1.UserName).GroupId = grid;
-                    db.SaveChanges();
+                    var grid = _usrcontext.Item3.Groups.FirstOrDefault(f => f.Name == grname).Id;
+                    var x = _usrcontext.Item3.Users.FirstOrDefault(f => f.UserName == _usrcontext.Item1.UserName).GroupId = grid;
+                    _usrcontext.Item3.SaveChanges();
+                    return RedirectToAction("Index", "Organizr");
                 }
-            }
-            return RedirectToAction("Index", "Organizr");
+                else
+                    return new HttpStatusCodeResult(401);
+            else
+                return new HttpStatusCodeResult(401);
         }
+        
         // GET: Organizr
         public ActionResult Index()
         {
-            Synapsr.Models.DatabaseStore db = new Models.DatabaseStore();
-            var usr = Synapsr.Logistics.AccountManager.GetCurrentUser();
-            if (usr==null)
-            {
+            
+            if (_usrcontext==null)
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
-            }
             else
-            {
-                if (usr.Item2.ElevationName=="Teacher")
-                {
-                    ViewBag.test = new SelectList(db.Groups, "Name", "Name");
-                }
-            }
+                if (_usrcontext.Item2.ElevationName=="Teacher")
+                    ViewBag.test = new SelectList(_usrcontext.Item3.Groups, "Name", "Name");
+
             string filename = Server.MapPath("~/Content/Sett/timetable.json");
-            var grname = db.Groups.FirstOrDefault(f => f.Id == usr.Item1.GroupId);
+            var grname = _usrcontext.Item3.Groups.FirstOrDefault(f => f.Id == _usrcontext.Item1.GroupId);
             TimeTable tb = new TimeTable(filename,grname.Name);
             return View(tb);
         }
-        
+       
         [HttpGet]
         public ActionResult Remove(int id,bool isodd=false)
         {
-            Synapsr.Models.DatabaseStore db = new Models.DatabaseStore();
-            var ff = Synapsr.Logistics.AccountManager.GetCurrentUser();
-            if (ff!=null)
+            
+            if (_usrcontext!=null)
             {
-                if (ff.Item2.ElevationName!="Teacher")
+                if (_usrcontext.Item2.ElevationName!="Teacher")
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
                 }
             }
-            var grname = db.Groups.FirstOrDefault(f => f.Id == ff.Item1.GroupId);
+            var grname = _usrcontext.Item3.Groups.FirstOrDefault(f => f.Id == _usrcontext.Item1.GroupId);
             string filename = Server.MapPath("~/Content/Sett/timetable.json");
             using (TimeTable tt = new TimeTable(filename, grname.Name))
             {
@@ -134,18 +131,17 @@ namespace Synapsr.Controllers
             }
             return RedirectToAction("Index", "Organizr");
         }
-        public ActionResult AddSubject(TimeTable.Event ev)
+
+        public ActionResult AddSubject()
         {
-            Synapsr.Models.DatabaseStore db = new Models.DatabaseStore();
-            var ff = Synapsr.Logistics.AccountManager.GetCurrentUser();
-            if (ff!=null)
+            if (_usrcontext.Item2!=null)
             {
-                if (ff.Item2.ElevationName!="Teacher")
+                if (_usrcontext.Item2.ElevationName!="Teacher")
                 {
                     return new HttpStatusCodeResult(System.Net.HttpStatusCode.Unauthorized);
                 }
             }
-            ViewBag.grname = new SelectList(db.Groups, "Name", "Name");
+            ViewBag.grname = new SelectList(_usrcontext.Item3.Groups, "Name", "Name");
             return View();
         }
     }

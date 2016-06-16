@@ -3,44 +3,48 @@
 }
 @model Synapsr.Logistics.TimeTable
 @Styles.Render("~/bundles/styles/timetable")
-<div class="row">
-    @{
-        var crs = Synapsr.Logistics.AccountManager.GetCurrentUser();
-        if (crs != null)
-        {
-            if (crs.Item2.ElevationName == "Teacher")
+<div class="container">
+    <div class="row">
+        @{
+            var crs = Synapsr.Logistics.AccountManager.GetCurrentUser();
+            if (crs != null)
             {
-                <div class="col-md-5">
-                    <a href="@Url.Action("AddSubject","Organizr")" class="btn btn-primary">Adauga</a>
-                </div>
-                <div class="col-md-5">
-                    @{ 
-                        DatabaseStore db = new DatabaseStore();
-                        var xx = Synapsr.Logistics.AccountManager.GetCurrentUser();
-                        var curgr = db.Groups.FirstOrDefault(f => f.Id == xx.Item1.GroupId);
-                        <select class="form-control" onchange="ChangeGroup(this.value)">
-                            <option value="@curgr.Name">@curgr.Name</option>
-                            @{
-                                foreach (var item in db.Groups)
-                                {
-                                    if (item.Name != curgr.Name)
+                if (crs.Item2.ElevationName == "Teacher")
+                {
+                    <div class="well">
+                        Ca profesor aveți abilitatea de a adăuga obiecte în orar și a vizualiza orarele curente pentru diferite grupe. Faceți click pe Adaugă sau selectati o grupă din listă pentru a începe.
+                    </div>
+                    <div class="col-md-4">
+                        <a href="@Url.Action("AddSubject", "Organizr")" class="btn btn-primary" style="margin-bottom:10px">Adaugă</a>
+                    </div>
+                    <div class="col-md-4">
+                        @{
+                            var curgr = crs.Item3.Groups.FirstOrDefault(f => f.Id == crs.Item1.GroupId);
+                            <select class="form-control" onchange="ChangeGroup(this.value)">
+                                <option value="@curgr.Name">@curgr.Name</option>
+                                @{
+                                    foreach (var item in crs.Item3.Groups)
                                     {
-                                        <option value="@item.Name">@item.Name</option>
-                                    }
+                                        if (item.Name != curgr.Name)
+                                        {
+                                            <option value="@item.Name">@item.Name</option>
+                                        }
 
+                                    }
                                 }
-                            }
-                        </select>
-                    }
-                </div>
-            }
+                            </select>
+                        }
+                    </div>
+                                        }
+                                    }
         }
-    }
-    <div class="col-md-2 pull-right">
-        <b>Saptamina @Model.TipSaptamina</b>
+        <div class="col-md-2 pull-right">
+            <p><b>Saptămână: </b> @Model.TipSaptamina</p>
+            <h5><b>Azi:</b> @DateTime.Now.ToString("dd/MM/yy HH:mm")</h5>
+        </div>
+        
     </div>
 </div>
-
 <div class="row">
     <div class="col-md-12">
         <div class="timetable"></div>
@@ -51,23 +55,31 @@
         <div id="tdetail" style="margin-top:30px">
 
         </div>
-        
+        @if (crs.Item2.ElevationName != "Teacher")
+        {
+            <div class="well">
+                <h4>Aici este reprezentat orarul pentru grupa ta. Fă click pe un obiect din orar pentru a afla mai multe detalii.</h4>
+                <h5>Daca dorești poți descărca orarul clasic de <a href="http://fcim.utm.md/?page_id=227">aici.</a></h5>
+            </div>
+        }
     </div>
 </div>
+
 @Scripts.Render("~/bundles/timetable")
 @section scripts{
     <script>
         function ChangeGroup(gr) {
-            
-            window.location ='@(Url.Action("ChangeGroup"))' +"?grname=" + gr;
+            window.location = '@(Url.Action("ChangeGroup"))' + "?grname=" + gr;
         }
         var idx;
         function ShowDetails(id, isodd) {
+            var loader = "<div class='loader center-block' style='width:40px;height:40px'></div>";
             isodd = isodd || false;
             idx = id;
             if (isodd) {
+                $('#tdetail').html(loader);
                 $.ajax({
-                    url: '@Url.Action("ShowDetails","Organizr")' + "?id=" + id+"&isodd=true",
+                    url: '@Url.Action("ShowDetails","Organizr")' + "?id=" + id + "&isodd=true",
                     type: 'GET',
                     success: function (result) {
                         $('#tdetail').html(result);
@@ -75,6 +87,7 @@
                 });
             }
             else {
+                $('#tdetail').html(loader);
                 $.ajax({
                     url: '@Url.Action("ShowDetails","Organizr")' + "?id=" + id,
                     type: 'GET',
@@ -84,7 +97,6 @@
                 });
             }
         }
-
         function Delete() {
             $.ajax({
                 url: '@Url.Action("Remove","Organizr")' + "?id=" + idx,
@@ -101,30 +113,30 @@
             var xx = DateTime.Now;
             foreach (var item in Model.Events)
             {
-                    @:timetable.addEvent("@(item.obiect+" " +item.auditoriu)", "@(item.zi)", new Date("@(item.start_date)"), new Date("@(item.end_date)"), '');
-                                        }
+                @:timetable.addEvent("@(item.obiect+" " +item.auditoriu)", "@(item.zi)", new Date("@(item.start_date)"), new Date("@(item.end_date)"), '');
+                    }
             if (Model.TipSaptamina=="impară")
             {
                 foreach (var item in Model.EventsI)
                 {
                     @:timetable.addEvent("@(item.obiect+ " " +item.auditoriu)", "@(item.zi)", new Date("@(item.start_date)"), new Date("@(item.end_date)"), '#');
-                }
+                        }
             }
-    }
+        }
         var renderer = new Timetable.Renderer(timetable);
         renderer.draw('.timetable');
 
         var evs = document.getElementsByClassName('time-entry');
         var xx = 0;
         for (var i = 0; i < evs.length; i++) {
-            if (evs[i].attributes['href']==null) {
+            if (evs[i].attributes['href'] == null) {
                 evs[i].setAttribute("onclick", "ShowDetails(" + xx + ");");
                 xx += 1;
             }
         }
-        var cnt=0;
+        var cnt = 0;
         for (var i = 0; i < evs.length; i++) {
-            if (evs[i].attributes['href']!=null) {
+            if (evs[i].attributes['href'] != null) {
                 evs[i].setAttribute("onclick", "ShowDetails(" + cnt + ",true);");
                 cnt += 1;
             }

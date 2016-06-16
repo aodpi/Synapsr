@@ -20,7 +20,8 @@ namespace Synapsr.Migrations
                 new Models.Elevation { ElevationName = "Supervisor" },
                 new Models.Elevation { ElevationName = "Student" },
                 new Models.Elevation { ElevationName = "Teacher" },
-                new Models.Elevation { ElevationName = "GroupSupervisor" });
+                new Models.Elevation { ElevationName = "GroupSupervisor" },
+                new Models.Elevation { ElevationName = "Gues" });
             context.SaveChanges();
 
             context.Specialities.AddOrUpdate(e => e.Name,
@@ -28,12 +29,14 @@ namespace Synapsr.Migrations
                 new Models.Specialitate { Name = "Management Informational" });
             context.SaveChanges();
 
-            context.Groups.AddOrUpdate(f=>f.Name,
-                new Models.Group { Name = "IA131", Year = Convert.ToInt32(13) == DateTime.Now.Year ? 13 : (DateTime.Now.Year - 13) % 2000 });
+            context.Groups.AddOrUpdate(f => f.Name,
+                new Models.Group { Name = "IA131", Year = Convert.ToInt32(13) == DateTime.Now.Year ? 1 : (DateTime.Now.Year - 13) % 2000 },
+                new Models.Group { Name = "IA151", Year = Convert.ToInt16(15) == DateTime.Now.Year ? 1 : (DateTime.Now.Year - 15) % 2000 });
             context.SaveChanges();
 
             context.RegCodes.AddOrUpdate(a => a.code,
-                new Models.RegCode { code = "123alpha", GroupId = 1 });
+                new Models.RegCode { code = "123alpha", GroupId = 1 },
+                new Models.RegCode { code = "alpha_omegaqwe", GroupId = 1 });
             context.SaveChanges();
 
             context.Users.AddOrUpdate(u => u.UserName,
@@ -52,15 +55,37 @@ namespace Synapsr.Migrations
                 });
             context.SaveChanges();
 
-            context.Teachers.AddOrUpdate(u => u.Firstname, new Models.Teacher
-            {
-                Firstname = "Lazu",
-                Lastname = "Victoria",
-                Grade = "Lector Superior"
-            });
+            context.Users.AddOrUpdate(usr => usr.UserName,
+                new Models.User
+                {
+                    FirstName = "Guest",
+                    LastName = "Guest",
+                    Password = "yoloswag",
+                    Email = "guest@guest.com",
+                    IdSpecialitate = 1,
+                    GroupId = 1,
+                    ElevationId = 1,
+                    UserName = "guest",
+                    avatar_uri = "/male.png",
+                    Sex = "Male"
+                });
             context.SaveChanges();
 
-            
+            context.Users.AddOrUpdate(usr => usr.UserName,
+            new Models.User
+            {
+                FirstName = "Victoria",
+                LastName = "Lazu",
+                Password = "123",
+                Email = "guest@guest.com",
+                IdSpecialitate = 1,
+                GroupId = 1,
+                ElevationId = 3,
+                UserName = "tchr",
+                avatar_uri = "/female.png",
+                Sex = "Female"
+            });
+            context.SaveChanges();
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
             //

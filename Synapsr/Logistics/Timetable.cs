@@ -87,6 +87,19 @@ namespace Synapsr.Logistics
             SaveChanges();
         }
         #endregion
+        private void BuildGroups()
+        {
+            var ls = new Models.DatabaseStore().Groups.ToList();
+            if (_obj.events.Count != ls.Count)
+                foreach (var item in ls)
+                {
+                    if (_obj.events.FirstOrDefault(f => f.groupname == item.Name) == null)
+                        _obj.events.Add(new GroupSubject { groupname = item.Name, evs = new List<Event>(), evsi = new List<Event>() });
+                }
+            else
+                return;
+            SaveChanges();
+        }
         
         #region Properties
         public string TipSaptamina
@@ -138,18 +151,6 @@ namespace Synapsr.Logistics
         }
         #endregion
 
-        private void BuildGroups()
-        {
-            var ls = new Models.DatabaseStore().Groups.ToList();
-            foreach (var item in ls)
-            {
-                if (_obj.events.FirstOrDefault(f => f.groupname == item.Name) == null)
-                {
-                    _obj.events.Add(new GroupSubject { groupname = item.Name, evs = new List<Event>(), evsi = new List<Event>() });
-                }
-            }
-            SaveChanges();
-        }
         public TimeTable(string filename,string grname)
         {
             _filename = filename;

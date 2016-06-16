@@ -5,8 +5,8 @@
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left:15px;
-    padding-right:15px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .navbar-nav li a:hover {
@@ -19,7 +19,7 @@
     position: relative;
 }
 
-    .timeline:before {
+    .timeline::before {
         top: 0;
         bottom: 0;
         position: absolute;
@@ -159,5 +159,47 @@
 
     .timeline-body > p + p {
         margin-top: 5px;
-
     }
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 3px solid #e67e22;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.glyphicon {
+    margin-right: 4px !important; /*override*/
+}
+
+.pagination .glyphicon {
+    margin-right: 0px !important; /*override*/
+}
+
+.pagination a {
+    color: #555;
+}
+
+.panel ul {
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+}
+
+.news-item {
+    padding: 4px 4px;
+    margin: 0px;
+    border-bottom: 1px dotted #555;
+}

@@ -1,66 +1,71 @@
-﻿@{ 
+﻿@{
     ViewBag.Title = "Slack";
 }
+
 <div class="row">
     <div class="col-md-12">
         <img src="~/Content/Images/SlackBranding/Slack Monochrome Black.png" class="img-responsive center-block" width="428" height="200" />
         <div class="well">
             <p align="justify">
-                Slack is a web chat for teams. With the help of slack we provide a solution to help teachers send lab work to students.
-                Just fill the message and choose a document file containing lab work (word or pdf) and press submit. Students in the
-                channel with respective group name will receive a message from a bot containing a link and a message so students can start working.
+                Slack este un chat web presdestinat echipelor. În cazul dat echipele vor fi grupele de studenți. Cu ajutorul la Slack
+                vă propunem o soluție pentru a vă ajuta interacțiunii cu studenții diferitor grupe. În forma de mai jos puteți introduce
+                un mic mesaj și un fișier(doc,pdf,zip) care va conține sarcină de laborator sau alte documente care trebuie trimise unei grupe.
+                În cazul în care nu indicați fișierul mesajul va fi tratat ca un anunț către grupă. Studenții în canalele respective vro primi mesajul
+                (Anunț/Sarcina de laborator) cu/fără un link pentru descarcare a fișierului. Asigurațivă că șeful grupei a creat canalul slack pentru grupa respectivă.
             </p>
         </div>
-        @{
-            switch ((string)ViewBag.status)
+    </div>
+</div>
+
+<!-- #region Result -->
+@switch ((string)ViewBag.status)
             {
                 case "ok":
-                    <div class="alert alert-success">
-                        Posted
-                    </div>
-                    break;
-                case "err":
-                    <div class="alert alert-danger">
-                        Error. Some values were not correct.
-                    </div>
-                    break;
-                default:
-                    break;
-            }
-        }
-        @using (Html.BeginForm("Post", "Slack", FormMethod.Post, new { @enctype = "multipart/form-data", @role = "form" }))
-        {
+        <div class="alert alert-success">
+            Studenții o să afle ^_^
+        </div>
+        break;
+    case "err":
+        <div class="alert alert-danger">
+            Eroare. Datele introduse sunt greșite.
+        </div>
+        break;
+    default:
+        break;
+}
+
+<!-- #endregion -->
+
+<div class="row">
+    @using (Html.BeginForm("Post", "Slack", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <div class="col-md-12 col-md-offset-0">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div class="form-group center-block">
-                        <div class="col-md-8">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="form-group">
                             <input type="text" placeholder="Message" name="message" class="form-control" />
                         </div>
-                    </div>
-                    <br />
-                    <br />
-                    <div class="form-group">
-                        <div class="col-md-8"><input type="file" name="file" /></div>
-                    </div>
-                    <br />
-                    <div class="form-group">
-                        <div class="col-md-8">
+                        <div class="form-group">
                             @{
                                 DatabaseStore db = new DatabaseStore();
                                 @Html.DropDownList("groupid", new SelectList(db.Groups, "Name", "Name"), new { @class = "form-control" });
-                                    }
+                            }
                         </div>
-                    </div>
-                    <br />
-                    <br />
-                    <div class="form-group">
-                        <div class="col-md-8">
-                            <input type="submit" value="Submit" class="btn btn-primary" />
+                        <div class="form-group">
+                            <input type="file" name="file" />
+                        </div>
+                        <div class="form-group">
+                            <label for="general">Anunț general:</label>
+                            <input type="checkbox" name="general" value="true" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Trimite" class="form-control" />
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
                                 }
-    </div>
 </div>

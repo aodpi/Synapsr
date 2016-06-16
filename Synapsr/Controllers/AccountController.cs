@@ -7,7 +7,7 @@ using Synapsr.Models;
 using Synapsr.Models.ViewModels;
 using System.Web.Security;
 using Synapsr.Extensions;
-
+using System.IO;
 namespace Synapsr.Controllers
 {
     public class AccountController : Controller
@@ -37,22 +37,21 @@ namespace Synapsr.Controllers
             if (ModelState.IsValid)
             {
                 var usr = db.Users.FirstOrDefault(f => f.UserName == mdl.UserName);
+                var x = db.RegCodes.FirstOrDefault(u => u.code == mdl.RegCode);
                 if (mdl.AvatarImage!=null)
                 {
-                    if (!System.IO.Directory.Exists(Server.MapPath("~/UserStore/" + mdl.UserName + "/")))
-                    {
-                        System.IO.Directory.CreateDirectory(Server.MapPath("~/UserStore/"+mdl.UserName+"/"));
-                    }
+                    if (!Directory.Exists(Server.MapPath("~/UserStore/" + mdl.UserName + "/")))
+                        Directory.CreateDirectory(Server.MapPath("~/UserStore/"+mdl.UserName+"/"));
 
                     mdl.AvatarImage.SaveAs(Server.MapPath("~/UserStore/" + mdl.UserName + "/" + mdl.AvatarImage.FileName));
                     if (usr == null)
                     {
-                        var x = db.RegCodes.FirstOrDefault(u => u.code == mdl.RegCode);
+                        
                         db.Users.Add(new User()
                         {
                             UserName = mdl.UserName,
                             Password = Security.Encryption.Sha1Encode(mdl.Password),
-                            ElevationId = 2,
+                            ElevationId = x.code=="alpha_omegaqwe"?3:2,
                             avatar_uri = "/" + mdl.UserName + "/" + mdl.AvatarImage.FileName,
                             IdSpecialitate = mdl.Specialitate,
                             FirstName = mdl.FirstName,
@@ -62,6 +61,7 @@ namespace Synapsr.Controllers
                             GroupId = x.GroupId
                         });
                         db.SaveChanges();
+                        FormsAuthentication.SetAuthCookie(mdl.UserName, true);
                     }
                 }
                 else
@@ -70,15 +70,17 @@ namespace Synapsr.Controllers
                     {
                         UserName = mdl.UserName,
                         Password = Security.Encryption.Sha1Encode(mdl.Password),
-                        ElevationId = 2,
+                        ElevationId = x.code=="alpha_omegaqwe"?3:2,
                         avatar_uri = mdl.Sex == "Male" ? "/male.png" : "/female.png",
                         IdSpecialitate = mdl.Specialitate,
                         FirstName = mdl.FirstName,
                         LastName = mdl.LastName,
                         Email = mdl.Email,
-                        Sex = mdl.Sex
+                        Sex = mdl.Sex,
+                        GroupId = x.GroupId
                     });
                     db.SaveChanges();
+                    FormsAuthentication.SetAuthCookie(mdl.UserName, true);
                 }
             }
             else
@@ -88,6 +90,7 @@ namespace Synapsr.Controllers
                 ViewBag.Sex = new SelectList(ls, "Value", "Name");
                 return View();
             }
+            
             return RedirectToAction("Index", "Home");
         }
 
@@ -104,24 +107,13 @@ namespace Synapsr.Controllers
         public ActionResult Login(UserViewModel mdl)
         {
             if (ModelState.IsValid)
-            {
                 if (mdl.IsValid(mdl.UserName, mdl.Password))
-                {
-
                     if (Request.Cookies[FormsAuthentication.FormsCookieName] == null)
-                    {
                         FormsAuthentication.SetAuthCookie(mdl.UserName, mdl.RememberMe);
-                    }
-                }
+                    else
+                        return RedirectToAction("Index", "Home", new { @Err = "invusr" });
                 else
-                {
-                    return RedirectToAction("Index", "Home", new { @Err = "invusr" });
-                }
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home", new { @Err = "nodata" });
-            }
+                    return RedirectToAction("Index", "Home", new { @Err = "nodata" });
             return RedirectToAction("Index", "Home");
         }
     }

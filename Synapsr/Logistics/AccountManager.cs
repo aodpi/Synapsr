@@ -9,18 +9,30 @@ namespace Synapsr.Logistics
 {
     public class AccountManager
     { 
-        public static Tuple<User, Elevation> GetCurrentUser()
+        public static Tuple<User, Elevation,DatabaseStore> GetCurrentUser()
         {
-            if (HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            var req = HttpContext.Current.Request;
+            if (req.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
-                DatabaseStore db = new DatabaseStore();
-                HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-                FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-                var currusr = db.Users.FirstOrDefault(u => u.UserName == authTicket.Name);
-                var elev = db.Elevations.FirstOrDefault(e => e.Id == currusr.ElevationId);
-                return new Tuple<User, Elevation>(currusr, elev);
+                //clasa context
+                var db = new DatabaseStore();
+
+                //citirea informatiei din fisierul cookie
+                HttpCookie authCookie = req.Cookies[FormsAuthentication.FormsCookieName];
+                var authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+
+                //citirea informatiei despre utilizator din baza de date
+                var currusr = db.Users.FirstOrDefault(f => f.UserName == authTicket.Name);
+
+                //determinarea elevatiei utilizatorului citit
+                var elev = db.Elevations.First(e => e.Id == currusr.ElevationId);
+
+                //returnarea rezultatului
+                return new Tuple<User, Elevation, DatabaseStore>(currusr, elev, db);
             }
             else
+                //fisierul cookie nu este prezent
+                //utilizator nelogat
                 return null;
         }
     }

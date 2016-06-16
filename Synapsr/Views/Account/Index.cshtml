@@ -1,31 +1,33 @@
 ﻿@{
-    if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+    var x = Synapsr.Logistics.AccountManager.GetCurrentUser();
+    if (x != null)
     {
-        DatabaseStore db = new DatabaseStore();
-        HttpCookie authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
-        FormsAuthenticationTicket authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-        User currusr = db.Users.FirstOrDefault(u => u.UserName == authTicket.Name);
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <a class="text-center" href="@Url.Content("~/UserStore/" + db.Users.GetUserAvatar(authTicket.Name))"><center><img style="margin-top:20px" src="@Url.Content("~/UserStore/" + db.Users.GetUserAvatar(authTicket.Name))" class="img-thumbnail" style="width:250px;height:250px" /></center></a>
-                </div>
-                <div class="col-md-9">
-                    <ul class="list-group" style="margin-top:20px">
-                        <li class="list-group-item"><b>Nume: </b>@currusr.FirstName</li>
-                        <li class="list-group-item"><b>Prenume: </b>@currusr.LastName</li>
-                        <li class="list-group-item"><b>Specialitatea: </b> @db.Specialities.FirstOrDefault(u => u.Id == currusr.IdSpecialitate).Name</li>
-                        <li class="list-group-item"><b>Username: </b>@currusr.UserName</li>
-                        <li class="list-group-item"><b>Sex: </b>@currusr.Sex</li>
-                        <li class="list-group-item"><b>Grupa: </b>@(db.Groups.FirstOrDefault(u=>u.Id==currusr.GroupId).Name)</li>
-                        <li class="list-group-item"><b>Anul: </b>@(db.Groups.FirstOrDefault(u=>u.Id==currusr.GroupId).Year)</li>
-                    </ul>
-                </div>
+        var currusr = x.Item1;
+        var db = x.Item3;
+        <div class="page-header">
+            <h2>Date despre profil.</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="margin-bottom:20px">
+                <a class="text-center" href="@Url.Content("~/UserStore/" + currusr.avatar_uri)"><center><img src="@Url.Content("~/UserStore/" + currusr.avatar_uri)" class="img-thumbnail" /></center></a>
+            </div>
+            <div class="col-md-9">
+                <ul class="list-group">
+                    <li class="list-group-item"><b>Nume: </b>@currusr.FirstName</li>
+                    <li class="list-group-item"><b>Prenume: </b>@currusr.LastName</li>
+                    <li class="list-group-item"><b>Specialitatea: </b> @db.Specialities.FirstOrDefault(u => u.Id == currusr.IdSpecialitate).Name</li>
+                    <li class="list-group-item"><b>Username: </b>@currusr.UserName</li>
+                    <li class="list-group-item"><b>Sex: </b>@currusr.Sex</li>
+                    <li class="list-group-item"><b>Grupa: </b>@(db.Groups.FirstOrDefault(u => u.Id == currusr.GroupId).Name)</li>
+                    <li class="list-group-item"><b>Anul: </b>@(db.Groups.FirstOrDefault(u => u.Id == currusr.GroupId).Year)</li>
+                </ul>
             </div>
         </div>
     }
     else
     {
-        <h1>You are not logged in.</h1>
+        <div class="well">
+            <h4>Nu sunteți logat. Faceți click pe iconița din dreapta sus pentru a vă loga.</h4>
+        </div>
     }
 }

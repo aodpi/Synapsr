@@ -2,10 +2,12 @@
 @{
     ViewBag.Title = "AddSubject";
 }
-
+<div class="page-header">
+    <h3>Adaugarea unui subiect in orar.</h3>
+</div>
 @using (Html.BeginForm("Add", "Organizr", FormMethod.Post))
 {
-    <div class="col-md-6">
+    <div class="col-md-6 col-md-offset-3">
         <label for="zi">Zi:</label>
         <select name="zi" class="form-control">
             <option>Luni</option>
@@ -16,7 +18,7 @@
         </select>
         <br />
         <label for="start_date">Inceput:</label>
-        <input type="time" name="start_date" class="form-control" required />
+        <input type="time" name="start_date" onchange="Increase();" class="form-control" required />
         <br />
         <label for="end_date">Sfarsit:</label>
         <input type="time" name="end_date" class="form-control" required />
@@ -42,7 +44,40 @@
         <br />
         <label for="isodd">Impara</label>
         <input type="checkbox" name="isodd" value="true"/>
-        <input type="submit" value="Submit" class="form-control" required />
+        <input type="submit" value="Adauga" class="form-control" required />
     </div>
+}
+@section scripts{
+<script>
+    function Increase()
+    {
+        var x = $('input[name="start_date"]').val();
+        var hour = parseInt(x.split(':')[0]);
+        var minute = parseInt(x.split(':')[1]);
+        var resulth = hour + 1;
+        var resultm = minute + 20;
+        var resultstr = "";
+        if (resulth<10) {
+            resultstr += "0" + resulth.toString();
+        }
+        else {
+            resultstr += resulth.toString();
+        }
+        resultstr += ":";
+        if (resultm<10) {
+            resultstr += "0" + resultm.toString();
+        }
+        else {
+            if (resultm==60) {
+                resultstr = (resulth + 1).toString() + ":00";
+            }
+            else {
+                resultstr += resultm.toString();
+            }
+        }
+        $('input[name=end_date]').val(resultstr);
+        debugger;
+    }
+    </script>    
 }
 

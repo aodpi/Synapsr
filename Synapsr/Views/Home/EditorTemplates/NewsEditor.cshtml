@@ -1,0 +1,17 @@
+﻿@model Synapsr.Models.ViewModels.NewsViewModel
+
+<div class="form-group">
+    @Html.LabelFor(f => f.title)
+    @Html.TextBoxFor(f => f.title, new { @class = "form-control" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(f => f.body)
+    @Html.TextAreaFor(f => f.body, new { @class = "form-control" })
+</div>
+<div class="form-group">
+    @Html.LabelFor(f=>f.inform)
+    @Html.CheckBoxFor(f=>f.inform)
+</div>
+<input type="submit" value="Adaugă" class="btn btn-success form-control" />
+
